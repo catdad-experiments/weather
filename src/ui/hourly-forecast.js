@@ -18,6 +18,11 @@ export const HourlyForecast = () => {
   for (const data of hourly) {
     const { date, temperatureStr, feelsLikeStr, precipitation, precipitationStr, weatherStr } = data;
 
+    // don't show time that has already passed
+    if (date < new Date()) {
+      continue;
+    }
+
     elems.push(html`<div style="border: 1px solid gray; padding: 10px; margin: 10px; border-radius: 10px" >
       <div>${dayName(date)} ${hour(date)}<//>
       <div>${weatherStr}<//>
