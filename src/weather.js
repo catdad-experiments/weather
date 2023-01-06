@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, html, signal, effect, useSignal } from './preact.js';
-import { getWeather } from './sources/weather.js';
+import { getForecast } from './sources/forecast.js';
 import { getPosition } from './sources/position.js';
 
 const Weather = createContext({});
@@ -27,7 +27,7 @@ export const withWeather = Component => ({ children, ...props }) => {
       precipitation_unit: precipitationUnit.value
     };
 
-    getWeather(query).then(result => {
+    getForecast(query).then(result => {
       weather.value = result;
     }).catch(err => {
       // TODO

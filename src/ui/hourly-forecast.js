@@ -16,7 +16,15 @@ export const HourlyForecast = () => {
   const elems = [];
 
   for (const data of hourly) {
-    const { date, temperatureStr, feelsLikeStr, precipitation, precipitationStr, weatherStr } = data;
+    const {
+      date,
+      temperatureStr, feelsLikeStr,
+      precipitation, precipitationStr,
+      rain, rainStr,
+      snowfall, snowfallStr,
+      showers, showersStr,
+      weatherStr
+    } = data;
 
     // don't show time that has already passed
     if (date < new Date()) {
@@ -24,10 +32,12 @@ export const HourlyForecast = () => {
     }
 
     elems.push(html`<div style="border: 1px solid gray; padding: 10px; margin: 10px; border-radius: 10px" >
-      <div>${dayName(date)} ${hour(date)}<//>
-      <div>${weatherStr}<//>
-      <div>${temperatureStr} (feels like ${feelsLikeStr})<//>
-      ${precipitation > 0 ? `💧 ${precipitationStr}` : ''}
+      <div>${dayName(date)} ${hour(date)}, ${weatherStr}<//>
+      <div><b>${temperatureStr}</b>, feels like ${feelsLikeStr}<//>
+      ${precipitation > 0 ? html`<div>🌧 ${precipitationStr}<//>` : ''}
+      ${rain > 0 ? html`<div>  💧 ${rainStr}<//>` : ''}
+      ${snowfall > 0 ? html`<div>  ❄ ${snowfallStr}<//>` : ''}
+      ${showers > 0 ? html`<div>  🚿 ${showersStr}<//>` : ''}
     <//>`);
   }
 

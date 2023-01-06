@@ -40,11 +40,15 @@ const codes = {
   99: 'Thunderstorm with heavy hail'
 };
 
-export const getWeather = async (query) => {
+const mmToInches = x => x / 25.4;
+
+export const getForecast = async (query) => {
   const queryString = Object.entries({
     ...query,
+    // always request in metric, convert if necessary
+    precipitation_unit: 'mm',
     current_weather: true,
-    hourly: 'temperature_2m,apparent_temperature,precipitation,visibility,weathercode',
+    hourly: 'temperature_2m,apparent_temperature,precipitation,snowfall,rain,showers,visibility,weathercode',
     timezone: 'auto'
   }).map(([key, value]) => `${key}=${value}`).join('&');
 
@@ -53,6 +57,8 @@ export const getWeather = async (query) => {
 
   const res = await fetchOk(`https://api.open-meteo.com/v1/forecast?${queryString}`);
   const json = await res.json();
+
+  const convertMm = x => query.precipitation_unit === 'inches' ? mmToInches(x) : x;
 
   console.log('⛅:', json);
 
@@ -69,12 +75,21 @@ export const getWeather = async (query) => {
       temperatureStr: `${hourly.temperature_2m[i]} ${tempUnit}`,
       feelsLike: hourly.apparent_temperature[i],
       feelsLikeStr: `${hourly.apparent_temperature[i]} ${tempUnit}`,
-      precipitation: hourly.precipitation[i],
-      precipitationStr: `${hourly.precipitation[i]} ${precipUnit}`,
       visibility: hourly.visibility[i],
       visibilityStr: `${hourly.visibility[i]} meters`,
       weather: hourly.weathercode[i],
-      weatherStr: codes[hourly.weathercode[i]]
+      weatherStr: codes[hourly.weathercode[i]],
+
+      // precipication values, convert if necessary
+      precipitation: convertMm(hourly.precipitation[i]),
+      precipitationStr: `${convertMm(hourly.precipitation[i])} ${precipUnit}`,
+      rain: convertMm(hourly.rain[i]),
+      rainStr: `${convertMm(hourly.rain[i])} ${precipUnit}`,
+      // snowfall is returned in cm not mm
+      snowfall: convertMm(hourly.snowfall[i] / 100),
+      snowfallStr: `${convertMm(hourly.snowfall[i] / 100)} ${precipUnit}`,
+      showers: convertMm(hourly.showers[i]),
+      showersStr: `${convertMm(hourly.showers[i])} ${precipUnit}`,
     });
   }
 
