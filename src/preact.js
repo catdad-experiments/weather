@@ -12,8 +12,16 @@ import {
   useCallback,
   useContext,
   useDebugValue,
-  useErrorBoundary
-} from 'https://cdn.jsdelivr.net/npm/htm@3.1.1/preact/standalone.module.js';
+  useErrorBoundary,
+
+  // signals
+  signal,
+  computed,
+  effect,
+  batch,
+  useSignal,
+  useComputed
+} from 'https://cdn.jsdelivr.net/npm/preact-htm-signals-standalone@0.0.10/dist/standalone.min.js';
 
 export {
   html,
@@ -29,5 +37,13 @@ export {
   useCallback,
   useContext,
   useDebugValue,
-  useErrorBoundary
+  useErrorBoundary,
+
+  // signals
+  signal,
+  computed,
+  effect,
+  batch,
+  useSignal,
+  useComputed
 };
