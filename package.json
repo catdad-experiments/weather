@@ -1,0 +1,22 @@
+{
+  "name": "weather",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "xpos . --no-cache"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/catdad-experiments/weather.git"
+  },
+  "author": "Kiril Vatev <vatev.1@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/catdad-experiments/weather/issues"
+  },
+  "homepage": "https://github.com/catdad-experiments/weather#readme",
+  "devDependencies": {
+    "xpos": "https://github.com/catdad-experiments/xpos/tarball/a546f3a11249b70e68305319ca79b3f47a902848"
+  }
+}
