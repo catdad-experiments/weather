@@ -25,11 +25,10 @@ const CurrentWeather = () => {
     return;
   }
 
-  const { current_weather } = weather.value;
-  const { temperature_2m: tempUnit } = weather.value.hourly_units;
+  const { current } = weather.value;
 
   // TODO current feels-like, etc.
-  return html`<div>Current temperature: ${current_weather.temperature}${tempUnit}<//>`;
+  return html`<div>Current temperature: ${current.temperatureStr}<//>`;
 };
 
 const HourlyForecast = () => {
@@ -40,14 +39,13 @@ const HourlyForecast = () => {
   }
 
   const { hourly } = weather.value;
-  const { temperature_2m: tempUnit, precipitation: precipUnit } = weather.value.hourly_units;
 
   const elems = [];
 
-  for (const i in hourly.time) {
-    const [time, temp, feelsLike, precipitation] = [hourly.time[i], hourly.temperature_2m[i], hourly.apparent_temperature[i], hourly.precipitation[i]];
+  for (const data of hourly) {
+    const { time, temperatureStr, feelsLikeStr, precipitation, precipitationStr } = data;
 
-    elems.push(html`<div>${time}: ${temp}${tempUnit} (${feelsLike}${tempUnit}) ${precipitation > 0 ? `💧 ${precipitation} ${precipUnit}` : ''} <//>`);
+    elems.push(html`<div>${time}: ${temperatureStr} (${feelsLikeStr}) ${precipitation > 0 ? `💧 ${precipitationStr}` : ''} <//>`);
   }
 
   return html`<div>${elems}<//>`;
