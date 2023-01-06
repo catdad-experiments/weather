@@ -35,7 +35,7 @@ const codes = {
   86: 'Heavy show showers',
 
   // only available in Europe
-  95: 'Thunderstorm: Slight or moderate??',
+  95: 'Thunderstorm', // Slight or moderate
   96: 'Thunderstorm with slight hail',
   99: 'Thunderstorm with heavy hail'
 };
@@ -43,6 +43,8 @@ const codes = {
 const mmToInches = x => x / 25.4;
 
 export const getForecast = async (query) => {
+  const convertMm = x => query.precipitation_unit === 'inches' ? mmToInches(x) : x;
+
   const queryString = Object.entries({
     ...query,
     // always request in metric, convert if necessary
@@ -57,8 +59,6 @@ export const getForecast = async (query) => {
 
   const res = await fetchOk(`https://api.open-meteo.com/v1/forecast?${queryString}`);
   const json = await res.json();
-
-  const convertMm = x => query.precipitation_unit === 'inches' ? mmToInches(x) : x;
 
   console.log('⛅:', json);
 
