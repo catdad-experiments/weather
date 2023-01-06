@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, html, signal, effect, useSignal } from './preact.js';
-import { fetchOk } from './fetchOk.js';
+import { fetchOk } from './utils.js';
 
 const getPosition = async () => {
   const position = await new Promise((resolve, reject) => {

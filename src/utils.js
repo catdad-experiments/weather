@@ -7,3 +7,5 @@ export const fetchOk = async (url, ...args) => {
 
   return res;
 };
+
+export const isLocalhost = () => !!/^localhost:[0-9]+$/.test(location.host);
