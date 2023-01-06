@@ -11,7 +11,12 @@ export const Location = () => {
   const { latitude, longitude, informative, administrative } = location.value;
   const { elevation } = weather.value || {};
 
-  const locationStr = administrative ? `${administrative} (${informative}) [${latitude}, ${longitude}]` : `${latitude}, ${longitude}`;
-
-  return html`<div>Location: ${locationStr} ${elevation !== undefined ? ` | Elevation: ${elevation}` : ''}<//>`;
+  return html`
+    ${administrative ?
+      html`<h2>${administrative} (${informative})<//>` :
+      html`<h2>Unknown location<//>`
+    }
+    <sub>${latitude}, ${longitude}<//>
+    <p>Elevation: ${elevation}<//>
+  `;
 };

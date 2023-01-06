@@ -11,5 +11,8 @@ export const CurrentWeather = () => {
   const { current } = weather.value;
 
   // TODO current feels-like, etc.
-  return html`<div>Current temperature: ${current.temperatureStr}<//>`;
+  return html`
+    <p>${current.temperatureStr}<//>
+    <p>${current.weatherStr}<//>
+  `;
 };
