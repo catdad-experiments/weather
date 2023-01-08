@@ -18,11 +18,12 @@ const Day = ({ data }) => {
   const hourlyVisible = useSignal(false);
 
   return html`<div style="border: 1px solid gray; padding: 10px; margin: 10px; border-radius: 10px" >
-    <div>${getDayName(date, 'long')} (${getDate(date)}) - ${weatherStr}<//>
-    <div>${temperatureMinStr} (${feelsLikeMinStr}) / ${temperatureMaxStr} (${feelsLikeMaxStr})<//>
+    <p>${getDayName(date, 'long')} (${getDate(date)}) - ${weatherStr}<//>
+    <div><b>${temperatureMaxStr} / ${temperatureMinStr}</b><//>
+    <div><i>feels like ${feelsLikeMaxStr} / ${feelsLikeMinStr}</i><//>
     ${precipitation > 0 ? html`<div>🌧 ${precipitationStr}<//>` : ''}
     <div><${Emoji}>☀⬆<//>: ${getTime(sunrise)}, <${Emoji}>☀⬇<//>: ${getTime(sunset)}<//>
-    <div>
+    <p>
       <button onclick=${() => { hourlyVisible.value = !hourlyVisible.value; }}>Toggle hourly<//>
       ${hourlyVisible.value ? html`<${HourlyForecast} hourly=${hourly} />` : ''}
     <//>
