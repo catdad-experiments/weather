@@ -40,10 +40,8 @@ const codes = {
   99: 'Thunderstorm with heavy hail'
 };
 
-const mmToInches = x => x / 25.4;
-
 export const getForecast = async (query) => {
-  const convertMm = x => query.precipitation_unit === 'inches' ? mmToInches(x) : x;
+  const convertMmToInch = x => query.precipitation_unit === 'inch' ? x / 25.4 : x;
 
   const queryString = Object.entries({
     ...query,
@@ -81,15 +79,15 @@ export const getForecast = async (query) => {
       weatherStr: codes[hourly.weathercode[i]],
 
       // precipication values, convert if necessary
-      precipitation: convertMm(hourly.precipitation[i]),
-      precipitationStr: `${convertMm(hourly.precipitation[i])} ${precipUnit}`,
-      rain: convertMm(hourly.rain[i]),
-      rainStr: `${convertMm(hourly.rain[i])} ${precipUnit}`,
+      precipitation: convertMmToInch(hourly.precipitation[i]),
+      precipitationStr: `${convertMmToInch(hourly.precipitation[i])} ${precipUnit}`,
+      rain: convertMmToInch(hourly.rain[i]),
+      rainStr: `${convertMmToInch(hourly.rain[i])} ${precipUnit}`,
       // snowfall is returned in cm not mm
-      snowfall: convertMm(hourly.snowfall[i] / 100),
-      snowfallStr: `${convertMm(hourly.snowfall[i] / 100)} ${precipUnit}`,
-      showers: convertMm(hourly.showers[i]),
-      showersStr: `${convertMm(hourly.showers[i])} ${precipUnit}`,
+      snowfall: convertMmToInch(hourly.snowfall[i] / 100),
+      snowfallStr: `${convertMmToInch(hourly.snowfall[i] / 100)} ${precipUnit}`,
+      showers: convertMmToInch(hourly.showers[i]),
+      showersStr: `${convertMmToInch(hourly.showers[i])} ${precipUnit}`,
     });
   }
 
