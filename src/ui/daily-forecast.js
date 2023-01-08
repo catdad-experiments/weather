@@ -20,13 +20,15 @@ export const DailyForecast = () => {
       temperatureMinStr, temperatureMaxStr,
       feelsLikeMinStr, feelsLikeMaxStr,
       precipitation, precipitationStr,
-      weatherStr
+      weatherStr,
+      sunrise, sunset
     } = data;
 
     elems.push(html`<div style="border: 1px solid gray; padding: 10px; margin: 10px; border-radius: 10px" >
       <div>${dayName(date)} - ${weatherStr}<//>
       <div>${temperatureMinStr} (${feelsLikeMinStr}) / ${temperatureMaxStr} (${feelsLikeMaxStr})<//>
       ${precipitation > 0 ? html`<div>🌧 ${precipitationStr}<//>` : ''}
+      <div>☀⬆: ${getTime(sunrise)}, ☀⬇: ${getTime(sunset)}<//>
     <//>`);
   }
 
