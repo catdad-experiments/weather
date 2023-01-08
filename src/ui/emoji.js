@@ -13,6 +13,6 @@ const fonts = [
   'sans-serif'
 ];
 
-export const Emoji = ({ children, ...props }) => {
-  return html`<span ...${props} style="font-family: ${fonts.join(',')}">${children}<//>`;
+export const Emoji = ({ children, style, ...props }) => {
+  return html`<span ...${props} style="${style}; font-family: ${fonts.join(',')}">${children}<//>`;
 };

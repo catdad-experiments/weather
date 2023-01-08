@@ -1,5 +1,6 @@
 import { html } from '../preact.js';
 import { useWeather } from '../weather.js';
+import { Emoji } from './emoji.js';
 
 export const CurrentWeather = () => {
   const { weather } = useWeather();
@@ -13,6 +14,6 @@ export const CurrentWeather = () => {
   // TODO current feels-like, etc.
   return html`
     <p>${current.temperatureStr}<//>
-    <p>${current.weatherStr}<//>
+    <p><${Emoji} style="font-size: 16pt">${current.weatherIcon}<//> ${current.weatherStr}<//>
   `;
 };
