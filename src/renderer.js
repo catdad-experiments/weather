@@ -1,4 +1,4 @@
-import { html, render, useState, useEffect, useRef } from './preact.js';
+import { html, render } from './preact.js';
 import { useWeather, withWeather } from './weather.js';
 
 import { Location } from './ui/location.js';
