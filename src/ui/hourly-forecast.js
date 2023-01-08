@@ -23,14 +23,12 @@ const Hour = ({ data }) => {
   <//>`;
 };
 
-export const HourlyForecast = () => {
+export const HourlyForecast = ({ hourly = [] } = {}) => {
   const { weather } = useWeather();
 
   if (!weather.value) {
     return;
   }
-
-  const { hourly } = weather.value;
 
   return html`
     <div>${hourly.map(data => html`<${Hour} data=${data} />`)}<//>`;

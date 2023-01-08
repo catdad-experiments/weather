@@ -15,8 +15,6 @@ const App = withWeather(() => {
       <${CurrentWeather} />
       <p>Daily:<//>
       <${DailyForecast} />
-      <p>Hourly:<//>
-      <${HourlyForecast} />
       <div><a href="https://open-meteo.com/">Weather data by Open-Meteo.com</a><//>
     `;
   }

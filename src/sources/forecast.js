@@ -1,4 +1,4 @@
-import { fetchOk } from "../utils.js";
+import { fetchOk, getDay } from "../utils.js";
 
 // https://open-meteo.com/en/docs
 const codes = {
@@ -82,13 +82,41 @@ export const getForecast = async (query) => {
   // let's clean up the data so it makes a bit more sense
 
   const { elevation, current_weather, hourly, hourly_units, daily, daily_units } = json;
-  const hourlyMap = [];
   const dailyMap = [];
 
+  for (const i in daily.time) {
+    dailyMap.push({
+      // time needs to be added to the date, because time zone issues
+      day: daily.time[i],
+      date: new Date(`${daily.time[i]}T00:00`),
+      sunrise: new Date(daily.sunrise[i]),
+      sunset: new Date(daily.sunset[i]),
+      weather: daily.weathercode[i],
+      weatherStr: codes[daily.weathercode[i]],
+      temperatureMin: daily.temperature_2m_min[i],
+      temperatureMax: daily.temperature_2m_max[i],
+      temperatureMinStr: `${daily.temperature_2m_min[i]} ${tempUnit}`,
+      temperatureMaxStr: `${daily.temperature_2m_max[i]} ${tempUnit}`,
+      feelsLikeMin: daily.apparent_temperature_min[i],
+      feelsLikeMax: daily.apparent_temperature_max[i],
+      feelsLikeMinStr: `${daily.apparent_temperature_min[i]} ${tempUnit}`,
+      feelsLikeMaxStr: `${daily.apparent_temperature_max[i]} ${tempUnit}`,
+
+      // precipication values, convert if necessary
+      precipitationSum: convertMmToInch(daily.precipitation_sum[i]),
+      precipitationSumStr: `${convertMmToInch(daily.precipitation_sum[i])} ${precipUnit}`,
+
+      hourly: []
+    });
+  }
+
   for (const i in hourly.time) {
+    const date = new Date(hourly.time[i]);
+    const day = getDay(date);
+    const hourlyMap = dailyMap.find(d => d.day === day).hourly;
+
     hourlyMap.push({
-      time: hourly.time[i],
-      date: new Date(hourly.time[i]),
+      date,
       temperature: hourly.temperature_2m[i],
       temperatureStr: `${hourly.temperature_2m[i]} ${tempUnit}`,
       feelsLike: hourly.apparent_temperature[i],
@@ -111,29 +139,6 @@ export const getForecast = async (query) => {
     });
   }
 
-  for (const i in daily.time) {
-    dailyMap.push({
-      // time needs to be added to the date, because time zone issues
-      date: new Date(`${daily.time[i]}T00:00`),
-      sunrise: new Date(daily.sunrise[i]),
-      sunset: new Date(daily.sunset[i]),
-      weather: daily.weathercode[i],
-      weatherStr: codes[daily.weathercode[i]],
-      temperatureMin: daily.temperature_2m_min[i],
-      temperatureMax: daily.temperature_2m_max[i],
-      temperatureMinStr: `${daily.temperature_2m_min[i]} ${tempUnit}`,
-      temperatureMaxStr: `${daily.temperature_2m_max[i]} ${tempUnit}`,
-      feelsLikeMin: daily.apparent_temperature_min[i],
-      feelsLikeMax: daily.apparent_temperature_max[i],
-      feelsLikeMinStr: `${daily.apparent_temperature_min[i]} ${tempUnit}`,
-      feelsLikeMaxStr: `${daily.apparent_temperature_max[i]} ${tempUnit}`,
-
-      // precipication values, convert if necessary
-      precipitationSum: convertMmToInch(daily.precipitation_sum[i]),
-      precipitationSumStr: `${convertMmToInch(daily.precipitation_sum[i])} ${precipUnit}`,
-    });
-  }
-
   const current = {
     temperature: current_weather.temperature,
     temperatureStr: `${current_weather.temperature} ${tempUnit}`,
@@ -144,7 +149,6 @@ export const getForecast = async (query) => {
   return {
     elevation,
     current,
-    hourly: hourlyMap,
     daily: dailyMap
   };
 };
