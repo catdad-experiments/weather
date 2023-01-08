@@ -41,6 +41,7 @@ const codes = {
 };
 
 export const getForecast = async (query) => {
+  const now = new Date();
   const convertMmToInch = x => query.precipitation_unit === 'inch' ? x / 25.4 : x;
 
   const queryString = Object.entries({
@@ -150,6 +151,7 @@ export const getForecast = async (query) => {
   };
 
   return {
+    date: now,
     elevation,
     current,
     daily: dailyMap
