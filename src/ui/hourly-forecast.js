@@ -1,6 +1,6 @@
 import { html } from '../preact.js';
 import { useWeather } from '../weather.js';
-import { getDayName, getHour } from '../utils.js';
+import { getDayName, getDate, getHour } from '../utils.js';
 
 const Hour = ({ data }) => {
   const {
@@ -14,7 +14,7 @@ const Hour = ({ data }) => {
   } = data;
 
   return html`<div style="border: 1px solid gray; padding: 10px; margin: 10px; border-radius: 10px" >
-    <div>${getDayName(date)} ${getHour(date)}, ${weatherStr}<//>
+    <div>${getDayName(date)} (${getDate(date)}) ${getHour(date)}, ${weatherStr}<//>
     <div><b>${temperatureStr}</b>, feels like ${feelsLikeStr}<//>
     ${precipitation > 0 ? html`<div>🌧 ${precipitationStr}<//>` : ''}
     ${rain > 0 ? html`<div>  💧 ${rainStr}<//>` : ''}
@@ -33,11 +33,5 @@ export const HourlyForecast = () => {
   const { hourly } = weather.value;
 
   return html`
-    <div>
-      ${hourly
-        // don't show hours earlier than right now
-        .filter(({ date }) => date > new Date())
-        .map(data => html`<${Hour} data=${data} />`)
-      }
-    <//>`;
+    <div>${hourly.map(data => html`<${Hour} data=${data} />`)}<//>`;
 };

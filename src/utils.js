@@ -11,5 +11,6 @@ export const fetchOk = async (url, ...args) => {
 export const isLocalhost = () => !!/^localhost:[0-9]+$/.test(location.host);
 
 export const getDayName = (date, format = 'short') => date.toLocaleDateString(navigator.language, { weekday: format });
+export const getDate = (date) => date.toLocaleDateString(navigator.language, { month: 'numeric', day: 'numeric' });
 export const getTime = date => date.toLocaleTimeString(navigator.language, { hour: 'numeric', minute: 'numeric' });
 export const getHour = date => date.toLocaleTimeString(navigator.language, { hour: '2-digit' });

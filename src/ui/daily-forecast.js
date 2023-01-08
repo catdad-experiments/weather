@@ -1,6 +1,6 @@
 import { html } from '../preact.js';
 import { useWeather } from '../weather.js';
-import { getDayName, getTime } from '../utils.js';
+import { getDayName, getDate, getTime } from '../utils.js';
 
 const Day = ({ data }) => {
   const {
@@ -13,7 +13,7 @@ const Day = ({ data }) => {
   } = data;
 
   return html`<div style="border: 1px solid gray; padding: 10px; margin: 10px; border-radius: 10px" >
-    <div>${getDayName(date, 'long')} - ${weatherStr}<//>
+    <div>${getDayName(date, 'long')} (${getDate(date)}) - ${weatherStr}<//>
     <div>${temperatureMinStr} (${feelsLikeMinStr}) / ${temperatureMaxStr} (${feelsLikeMaxStr})<//>
     ${precipitation > 0 ? html`<div>🌧 ${precipitationStr}<//>` : ''}
     <div>☀⬆: ${getTime(sunrise)}, ☀⬇: ${getTime(sunset)}<//>
