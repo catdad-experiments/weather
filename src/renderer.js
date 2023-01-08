@@ -4,7 +4,6 @@ import { useWeather, withWeather } from './weather.js';
 import { Location } from './ui/location.js';
 import { CurrentWeather } from './ui/current-weather.js';
 import { DailyForecast } from './ui/daily-forecast.js';
-import { HourlyForecast } from './ui/hourly-forecast.js';
 
 const App = withWeather(() => {
   const { location, weather } = useWeather();

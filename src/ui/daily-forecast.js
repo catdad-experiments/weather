@@ -1,7 +1,7 @@
 import { html, useSignal } from '../preact.js';
 import { useWeather } from '../weather.js';
 import { getDayName, getDate, getTime } from '../utils.js';
-
+import { Emoji } from './emoji.js';
 import { HourlyForecast } from './hourly-forecast.js';
 
 const Day = ({ data }) => {
@@ -21,7 +21,7 @@ const Day = ({ data }) => {
     <div>${getDayName(date, 'long')} (${getDate(date)}) - ${weatherStr}<//>
     <div>${temperatureMinStr} (${feelsLikeMinStr}) / ${temperatureMaxStr} (${feelsLikeMaxStr})<//>
     ${precipitation > 0 ? html`<div>🌧 ${precipitationStr}<//>` : ''}
-    <div>☀⬆: ${getTime(sunrise)}, ☀⬇: ${getTime(sunset)}<//>
+    <div><${Emoji}>☀⬆<//>: ${getTime(sunrise)}, <${Emoji}>☀⬇<//>: ${getTime(sunset)}<//>
     <div>
       <button onclick=${() => { hourlyVisible.value = !hourlyVisible.value; }}>Toggle hourly<//>
       ${hourlyVisible.value ? html`<${HourlyForecast} hourly=${hourly} />` : ''}
