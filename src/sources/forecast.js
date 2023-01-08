@@ -113,7 +113,8 @@ export const getForecast = async (query) => {
 
   for (const i in daily.time) {
     dailyMap.push({
-      date: new Date(daily.time[i]),
+      // time needs to be added to the date, because time zone issues
+      date: new Date(`${daily.time[i]}T00:00`),
       sunrise: new Date(daily.sunrise[i]),
       sunset: new Date(daily.sunset[i]),
       weather: daily.weathercode[i],
