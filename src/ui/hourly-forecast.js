@@ -1,8 +1,6 @@
 import { html } from '../preact.js';
 import { useWeather } from '../weather.js';
-
-const dayName = date => date.toLocaleDateString(navigator.language, { weekday: 'short' });
-const hour = date => date.toLocaleTimeString(navigator.language, { hour: '2-digit' });
+import { getDayName, getHour } from '../utils.js';
 
 export const HourlyForecast = () => {
   const { weather } = useWeather();
@@ -32,7 +30,7 @@ export const HourlyForecast = () => {
     }
 
     elems.push(html`<div style="border: 1px solid gray; padding: 10px; margin: 10px; border-radius: 10px" >
-      <div>${dayName(date)} ${hour(date)}, ${weatherStr}<//>
+      <div>${getDayName(date)} ${getHour(date)}, ${weatherStr}<//>
       <div><b>${temperatureStr}</b>, feels like ${feelsLikeStr}<//>
       ${precipitation > 0 ? html`<div>🌧 ${precipitationStr}<//>` : ''}
       ${rain > 0 ? html`<div>  💧 ${rainStr}<//>` : ''}

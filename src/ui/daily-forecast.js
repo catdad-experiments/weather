@@ -1,7 +1,7 @@
 import { html } from '../preact.js';
 import { useWeather } from '../weather.js';
 
-const dayName = date => date.toLocaleDateString(navigator.language, { weekday: 'short' });
+import { getDayName, getTime } from '../utils.js';
 
 export const DailyForecast = () => {
   const { weather } = useWeather();
@@ -25,7 +25,7 @@ export const DailyForecast = () => {
     } = data;
 
     elems.push(html`<div style="border: 1px solid gray; padding: 10px; margin: 10px; border-radius: 10px" >
-      <div>${dayName(date)} - ${weatherStr}<//>
+      <div>${getDayName(date, 'long')} - ${weatherStr}<//>
       <div>${temperatureMinStr} (${feelsLikeMinStr}) / ${temperatureMaxStr} (${feelsLikeMaxStr})<//>
       ${precipitation > 0 ? html`<div>🌧 ${precipitationStr}<//>` : ''}
       <div>☀⬆: ${getTime(sunrise)}, ☀⬇: ${getTime(sunset)}<//>
