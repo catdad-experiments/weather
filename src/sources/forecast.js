@@ -48,8 +48,26 @@ export const getForecast = async (query) => {
     // always request in metric, convert if necessary
     precipitation_unit: 'mm',
     current_weather: true,
-    hourly: 'temperature_2m,apparent_temperature,precipitation,snowfall,rain,showers,visibility,weathercode',
-    daily: 'weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,sunrise,sunset,precipitation_sum',
+    hourly: [
+      'temperature_2m',
+      'apparent_temperature',
+      'precipitation',
+      'snowfall',
+      'rain',
+      'showers',
+      'visibility',
+      'weathercode'
+    ].join(','),
+    daily: [
+      'weathercode',
+      'temperature_2m_max',
+      'temperature_2m_min',
+      'apparent_temperature_max',
+      'apparent_temperature_min',
+      'sunrise',
+      'sunset',
+      'precipitation_sum'
+    ].join(','),
     timezone: 'auto'
   }).map(([key, value]) => `${key}=${value}`).join('&');
 
