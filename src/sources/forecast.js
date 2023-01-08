@@ -2,42 +2,42 @@ import { fetchOk, getDay } from "../utils.js";
 
 // https://open-meteo.com/en/docs
 const codes = {
-  0: 'Clear sky',
-  1: 'Mainly clear',
-  2: 'Partly cloudy',
-  3: 'Overcast',
+  0: { name: 'Clear sky', icon: '☀' },
+  1: { name: 'Mainly clear', icon: '🌤' },
+  2: { name: 'Partly cloudy', icon: '⛅' },
+  3: { name: 'Overcast', icon: '☁' },
 
-  45: 'Fog',
-  48: 'depositing rime fog',
+  45: { name: 'Fog', icon: '🌫' },
+  48: { name: 'Depositing rime fog', icon: '🌫' },
 
-  51: 'Light drizzle',
-  53: 'Moderate drizzle',
-  55: 'Dense drizzle',
-  56: 'Light freezing drizzle',
-  57: 'Dense freezing drizzle',
+  51: { name: 'Light drizzle', icon: '🌦' },
+  53: { name: 'Moderate drizzle', icon: '🌦' },
+  55: { name: 'Dense drizzle', icon: '🌦' },
+  56: { name: 'Light freezing drizzle', icon: '🌨' },
+  57: { name: 'Dense freezing drizzle', icon: '🌨' },
 
-  61: 'Slight rain',
-  63: 'Moderate rain',
-  65: 'Heavy rain',
-  66: 'Light freezing rain',
-  67: 'Heavy freezinf rain',
+  61: { name: 'Slight rain', icon: '🌧' },
+  63: { name: 'Moderate rain', icon: '🌧' },
+  65: { name: 'Heavy rain', icon: '🌧' },
+  66: { name: 'Light freezing rain', icon: '🌨' },
+  67: { name: 'Heavy freezing rain', icon: '🌨' },
 
-  71: 'Slight snow fall',
-  73: 'Moderate snow fall',
-  75: 'Heavy snow fall',
-  77:	'Snow grains',
+  71: { name: 'Slight snow fall', icon: '❄' },
+  73: { name: 'Moderate snow fall', icon: '❄' },
+  75: { name: 'Heavy snow fall', icon: '❄' },
+  77:	{ name: 'Snow grains', icon: '❄' },
 
-  80: 'Slight rain showers',
-  81: 'Moderate rain showers',
-  82: 'Violent rain showers',
+  80: { name: 'Slight rain showers', icon: '🌦' },
+  81: { name: 'Moderate rain showers', icon: '🌦' },
+  82: { name: 'Violent rain showers', icon: '🌦' },
 
-  85: 'Slight snow showers',
-  86: 'Heavy show showers',
+  85: { name: 'Slight snow showers', icon: '🌨' },
+  86: { name: 'Heavy show showers', icon: '🌨' },
 
   // only available in Europe
-  95: 'Thunderstorm', // Slight or moderate
-  96: 'Thunderstorm with slight hail',
-  99: 'Thunderstorm with heavy hail'
+  95: { name: 'Thunderstorm', icon: '⚡' },
+  96: { name: 'Thunderstorm with slight hail', icon: '⛈' },
+  99: { name: 'Thunderstorm with heavy hail', icon: '⛈' },
 };
 
 export const getForecast = async (query) => {
@@ -92,7 +92,8 @@ export const getForecast = async (query) => {
       sunrise: new Date(daily.sunrise[i]),
       sunset: new Date(daily.sunset[i]),
       weather: daily.weathercode[i],
-      weatherStr: codes[daily.weathercode[i]],
+      weatherStr: codes[daily.weathercode[i]].name,
+      weatherIcon: codes[daily.weathercode[i]].icon,
       temperatureMin: daily.temperature_2m_min[i],
       temperatureMax: daily.temperature_2m_max[i],
       temperatureMinStr: `${daily.temperature_2m_min[i]} ${tempUnit}`,
@@ -124,7 +125,8 @@ export const getForecast = async (query) => {
       visibility: hourly.visibility[i],
       visibilityStr: `${hourly.visibility[i]} meters`,
       weather: hourly.weathercode[i],
-      weatherStr: codes[hourly.weathercode[i]],
+      weatherStr: codes[hourly.weathercode[i]].name,
+      weatherIcon: codes[hourly.weathercode[i]].icon,
 
       // precipication values, convert if necessary
       precipitation: convertMmToInch(hourly.precipitation[i]),
@@ -143,7 +145,8 @@ export const getForecast = async (query) => {
     temperature: current_weather.temperature,
     temperatureStr: `${current_weather.temperature} ${tempUnit}`,
     weatherCode: current_weather.weathercode,
-    weatherStr: codes[current_weather.weathercode]
+    weatherStr: codes[current_weather.weathercode].name,
+    weatherIcon: codes[current_weather.weathercode].icon,
   };
 
   return {

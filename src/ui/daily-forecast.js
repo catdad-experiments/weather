@@ -10,7 +10,7 @@ const Day = ({ data }) => {
     temperatureMinStr, temperatureMaxStr,
     feelsLikeMinStr, feelsLikeMaxStr,
     precipitation, precipitationStr,
-    weatherStr,
+    weatherStr, weatherIcon,
     sunrise, sunset,
     hourly
   } = data;
@@ -18,7 +18,7 @@ const Day = ({ data }) => {
   const hourlyVisible = useSignal(false);
 
   return html`<div style="border: 1px solid gray; padding: 10px; margin: 10px; border-radius: 10px" >
-    <p>${getDayName(date, 'long')} (${getDate(date)}) - ${weatherStr}<//>
+    <p>${getDayName(date, 'long')} (${getDate(date)}) - <${Emoji}>${weatherIcon}<//> ${weatherStr}<//>
     <div><b>${temperatureMaxStr} / ${temperatureMinStr}</b><//>
     <div><i>feels like ${feelsLikeMaxStr} / ${feelsLikeMinStr}</i><//>
     ${precipitation > 0 ? html`<div>🌧 ${precipitationStr}<//>` : ''}
