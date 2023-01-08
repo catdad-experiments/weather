@@ -49,6 +49,7 @@ export const getForecast = async (query) => {
     precipitation_unit: 'mm',
     current_weather: true,
     hourly: 'temperature_2m,apparent_temperature,precipitation,snowfall,rain,showers,visibility,weathercode',
+    daily: 'weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,sunrise,sunset,precipitation_sum',
     timezone: 'auto'
   }).map(([key, value]) => `${key}=${value}`).join('&');
 
@@ -62,8 +63,9 @@ export const getForecast = async (query) => {
 
   // let's clean up the data so it makes a bit more sense
 
-  const { elevation, current_weather, hourly, hourly_units } = json;
+  const { elevation, current_weather, hourly, hourly_units, daily, daily_units } = json;
   const hourlyMap = [];
+  const dailyMap = [];
 
   for (const i in hourly.time) {
     hourlyMap.push({
@@ -91,6 +93,28 @@ export const getForecast = async (query) => {
     });
   }
 
+  for (const i in daily.time) {
+    dailyMap.push({
+      date: new Date(daily.time[i]),
+      sunrise: new Date(daily.sunrise[i]),
+      sunset: new Date(daily.sunset[i]),
+      weather: daily.weathercode[i],
+      weatherStr: codes[daily.weathercode[i]],
+      temperatureMin: daily.temperature_2m_min[i],
+      temperatureMax: daily.temperature_2m_max[i],
+      temperatureMinStr: `${daily.temperature_2m_min[i]} ${tempUnit}`,
+      temperatureMaxStr: `${daily.temperature_2m_max[i]} ${tempUnit}`,
+      feelsLikeMin: daily.apparent_temperature_min[i],
+      feelsLikeMax: daily.apparent_temperature_max[i],
+      feelsLikeMinStr: `${daily.apparent_temperature_min[i]} ${tempUnit}`,
+      feelsLikeMaxStr: `${daily.apparent_temperature_max[i]} ${tempUnit}`,
+
+      // precipication values, convert if necessary
+      precipitationSum: convertMmToInch(daily.precipitation_sum[i]),
+      precipitationSumStr: `${convertMmToInch(daily.precipitation_sum[i])} ${precipUnit}`,
+    });
+  }
+
   const current = {
     temperature: current_weather.temperature,
     temperatureStr: `${current_weather.temperature} ${tempUnit}`,
@@ -101,6 +125,7 @@ export const getForecast = async (query) => {
   return {
     elevation,
     current,
-    hourly: hourlyMap
+    hourly: hourlyMap,
+    daily: dailyMap
   };
 };

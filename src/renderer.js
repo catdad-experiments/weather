@@ -3,6 +3,7 @@ import { useWeather, withWeather } from './weather.js';
 
 import { Location } from './ui/location.js';
 import { CurrentWeather } from './ui/current-weather.js';
+import { DailyForecast } from './ui/daily-forecast.js';
 import { HourlyForecast } from './ui/hourly-forecast.js';
 
 const App = withWeather(() => {
@@ -12,6 +13,9 @@ const App = withWeather(() => {
     return html`
       <${Location} />
       <${CurrentWeather} />
+      <p>Daily:<//>
+      <${DailyForecast} />
+      <p>Hourly:<//>
       <${HourlyForecast} />
       <div><a href="https://open-meteo.com/">Weather data by Open-Meteo.com</a><//>
     `;
