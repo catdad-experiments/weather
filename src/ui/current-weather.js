@@ -12,8 +12,8 @@ export const CurrentWeather = () => {
   const { current } = weather.value;
 
   // TODO current feels-like, etc.
-  return html`
-    <p>${current.temperatureStr}, feels like ${current.feelsLikeStr}<//>
-    <p><${Emoji} style="font-size: 16pt">${current.weatherIcon}<//> ${current.weatherStr}<//>
-  `;
+  return html`<div>
+    <h2><${Emoji} style="font-size: 1.2em">${current.weatherIcon}<//> ${current.weatherStr}<//>
+    <h2>${current.temperatureStr}, feels like ${current.feelsLikeStr}<//>
+  <//>`;
 };
