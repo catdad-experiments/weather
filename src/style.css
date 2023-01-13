@@ -1,6 +1,6 @@
 :root {
   --full: calc(var(--vh, 1vh) * 100);
-  --limit: 600px;
+  --limit: 800px;
   --spacing: 1em;
   --opacity-recolor: 0.6;
   --create-space: 4.6rem;

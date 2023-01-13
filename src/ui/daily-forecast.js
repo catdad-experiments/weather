@@ -39,5 +39,5 @@ export const DailyForecast = () => {
 
   const { daily } = weather.value;
 
-  return html`<div>${daily.map(data => html`<${Day} data=${data} />`)}<//>`;
+  return html`<div style="width: 100%">${daily.map(data => html`<${Day} data=${data} />`)}<//>`;
 };

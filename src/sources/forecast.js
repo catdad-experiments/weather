@@ -42,7 +42,8 @@ const codes = {
 
 export const getForecast = async (query) => {
   const now = new Date();
-  const convertMmToInch = x => query.precipitation_unit === 'inch' ? x / 25.4 : x;
+  const shorten = x => Math.round(x * 1000) / 1000;
+  const convertMmToInch = x => query.precipitation_unit === 'inch' ? shorten(x / 25.4) : x;
 
   const queryString = Object.entries({
     ...query,
