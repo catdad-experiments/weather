@@ -1,4 +1,4 @@
-import { fetchOk, getDay } from "../utils.js";
+import { fetchOk, getDay, getDayWithHour } from "../utils.js";
 
 // https://open-meteo.com/en/docs
 const codes = {
@@ -78,6 +78,10 @@ export const getForecast = async (query) => {
   const res = await fetchOk(`https://api.open-meteo.com/v1/forecast?${queryString}`);
   const json = await res.json();
 
+  let currentFeelsLike;
+  const thisDay = getDay(new Date());
+  const thisHour = getDayWithHour(new Date());
+
   console.log('⛅:', json);
 
   // let's clean up the data so it makes a bit more sense
@@ -117,6 +121,10 @@ export const getForecast = async (query) => {
     const day = getDay(date);
     const hourlyMap = dailyMap.find(d => d.day === day).hourly;
 
+    if (day === thisDay && hourly.time[i] === thisHour) {
+      currentFeelsLike = hourly.apparent_temperature[i];
+    }
+
     hourlyMap.push({
       date,
       temperature: hourly.temperature_2m[i],
@@ -145,6 +153,8 @@ export const getForecast = async (query) => {
   const current = {
     temperature: current_weather.temperature,
     temperatureStr: `${current_weather.temperature} ${tempUnit}`,
+    feelsLike: currentFeelsLike,
+    feelsLikeStr: `${currentFeelsLike} ${tempUnit}`,
     weatherCode: current_weather.weathercode,
     weatherStr: codes[current_weather.weathercode].name,
     weatherIcon: codes[current_weather.weathercode].icon,

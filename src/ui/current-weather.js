@@ -13,7 +13,7 @@ export const CurrentWeather = () => {
 
   // TODO current feels-like, etc.
   return html`
-    <p>${current.temperatureStr}<//>
+    <p>${current.temperatureStr}, feels like ${current.feelsLikeStr}<//>
     <p><${Emoji} style="font-size: 16pt">${current.weatherIcon}<//> ${current.weatherStr}<//>
   `;
 };
