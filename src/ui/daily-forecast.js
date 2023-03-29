@@ -41,7 +41,7 @@ const Day = ({ data }) => {
     <div><b>${temperatureMaxStr} / ${temperatureMinStr}</b><//>
     <div><i>feels like ${feelsLikeMaxStr} / ${feelsLikeMinStr}</i><//>
     ${precipitation > 0 ? html`<div>🌧 ${precipitationStr}<//>` : ''}
-    <div><${Emoji}>☀⬆<//>: ${getTime(sunrise)}, <${Emoji}>☀⬇<//>: ${getTime(sunset)}<//>
+    <div><${Emoji}>🌅<//>: ${getTime(sunrise)}, <${Emoji}>🌇<//>: ${getTime(sunset)}<//>
 
     ${hourlyVisible.value ? html`<p><${HourlyForecast} hourly=${hourly} /><//>` : ''}
   <//>`;
