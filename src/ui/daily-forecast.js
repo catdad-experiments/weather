@@ -32,14 +32,18 @@ const Day = ({ data }) => {
       top: 10px;
       right: 10px;
     }
+
+    $ .dim {
+      opacity: 0.6
+    }
   `);
 
   return html`<div class=${classname} onclick=${() => { hourlyVisible.value = !hourlyVisible.value; }}>
     <div class="toggle"><${Emoji}>${hourlyVisible.value ? '🔼' : '🔽'}<//><//>
 
-    <p>${getDayName(date, 'long')} (${getDate(date)}) - <${Emoji}>${weatherIcon}<//> ${weatherStr}<//>
+    <div>${getDayName(date, 'long')}, ${getDate(date)} - <${Emoji}>${weatherIcon}<//> ${weatherStr}<//>
     <div><b>${temperatureMaxStr} / ${temperatureMinStr}</b><//>
-    <div><i>feels like ${feelsLikeMaxStr} / ${feelsLikeMinStr}</i><//>
+    <div class="dim">feels like ${feelsLikeMaxStr} / ${feelsLikeMinStr}<//>
     ${precipitation > 0 ? html`<div>🌧 ${precipitationStr}<//>` : ''}
     <div><${Emoji}>🌅<//>: ${getTime(sunrise)}, <${Emoji}>🌇<//>: ${getTime(sunset)}<//>
 

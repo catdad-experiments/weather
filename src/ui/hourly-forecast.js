@@ -38,6 +38,10 @@ const Hour = ({ data }) => {
       text-align: center;
     }
 
+    $ .dim {
+      opacity: 0.6
+    }
+
     @media (max-width: 560px) {
       $ {
         grid-template-columns: var(--time-column) 2fr 1fr var(--precip-column);
@@ -54,7 +58,7 @@ const Hour = ({ data }) => {
   return html`<div class=${classname}>
     <div>${getHour(date).toLowerCase()}<//>
     <div class="center"><${Emoji}>${weatherIcon}<//> ${noWrap(weatherStr)}<//>
-    <div class="center wrap"><b>${noWrap(temperatureStr)}</b> <i title="feels like">(${noWrap(feelsLikeStr)})</i><//>
+    <div class="center wrap"><b>${noWrap(temperatureStr)}</b> <span class="dim" title="feels like">(${noWrap(feelsLikeStr)})<//><//>
     <div><${Emoji}>${precipIcon}<//> ${precipitationStr}<//>
   <//>`;
 };
