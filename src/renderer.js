@@ -29,6 +29,7 @@ const App = withWeather(() => {
     return html`<${Location} />`;
   }
 
+  // TODO allow user to manually trigger location fetching or type a location name
   return html`<div>Working on it...</div>`;
 });
 
