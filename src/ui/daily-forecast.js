@@ -31,6 +31,7 @@ const Day = ({ data }) => {
       position: absolute;
       top: 10px;
       right: 10px;
+      user-select: none;
     }
 
     $ .dim {
@@ -38,8 +39,8 @@ const Day = ({ data }) => {
     }
   `);
 
-  return html`<div class=${classname} onclick=${() => { hourlyVisible.value = !hourlyVisible.value; }}>
-    <div class="toggle"><${Emoji}>${hourlyVisible.value ? '🔼' : '🔽'}<//><//>
+  return html`<div class=${classname}>
+    <div class="toggle" onclick=${() => { hourlyVisible.value = !hourlyVisible.value; }}><${Emoji}>${hourlyVisible.value ? '🔼' : '🔽'}<//><//>
 
     <div>${getDayName(date, 'long')}, ${getDate(date)} - <${Emoji}>${weatherIcon}<//> ${weatherStr}<//>
     <div><b>${temperatureMaxStr} / ${temperatureMinStr}</b><//>
