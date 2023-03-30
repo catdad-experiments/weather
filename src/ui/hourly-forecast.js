@@ -34,6 +34,10 @@ const Hour = ({ data }) => {
       border-radius: 5px;
     }
 
+    $:first-of-type {
+      margin-top: 10px;
+    }
+
     $ .center {
       text-align: center;
     }

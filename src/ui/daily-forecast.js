@@ -48,7 +48,7 @@ const Day = ({ data }) => {
     ${precipitation > 0 ? html`<div>🌧 ${precipitationStr}<//>` : ''}
     <div><${Emoji}>🌅<//>: ${getTime(sunrise)}, <${Emoji}>🌇<//>: ${getTime(sunset)}<//>
 
-    ${hourlyVisible.value ? html`<p><${HourlyForecast} hourly=${hourly} /><//>` : ''}
+    ${hourlyVisible.value ? html`<${HourlyForecast} hourly=${hourly} />` : ''}
   <//>`;
 };
 
