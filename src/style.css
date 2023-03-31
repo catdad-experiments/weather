@@ -26,6 +26,7 @@ body {
   --lvl2: var(--DARK-lvl2);
   --background: var(--DARK-background);
   --foreground: var(--DARK-foreground);
+  --dim: 0.6;
 }
 
 html, body {

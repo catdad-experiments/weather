@@ -12,7 +12,7 @@ export const CurrentWeather = () => {
     }
 
     $ .dim {
-      opacity: 0.7;
+      opacity: var(--dim);
     }
   `);
 

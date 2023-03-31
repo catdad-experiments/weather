@@ -22,6 +22,11 @@ export const Location = () => {
       margin: 0.2rem 0;
       font-size: 1.5rem;
     }
+
+    $ .dim {
+      opacity: var(--dim);
+      font-size: 0.9rem;
+    }
   `);
 
   if (!location.value) {
@@ -34,12 +39,12 @@ export const Location = () => {
   return html`<div class="${classname}">
     ${administrative ?
       html`
-        <h1>${administrative}<//>
-        <h2>${city}, ${informative}<//>
+        <h2>${administrative}<//>
+        <h3>${city}, ${informative}<//>
       ` :
       html`<h1>Unknown location<//>`
     }
-    <div>${latitude}, ${longitude}<//>
-    <div>Elevation: ${elevation}<//>
+    <div class="dim">${latitude}, ${longitude}<//>
+    <div class="dim">Elevation: ${elevation} meters<//>
   <//>`;
 };
