@@ -33,7 +33,7 @@ html, body {
   padding: 0;
   background: var(--background);
 
-  font-family: sans-serif;
+  font-family: "Noto Sans", sans-serif;
   color: var(--foreground);
   line-height: 1.2;
 }
