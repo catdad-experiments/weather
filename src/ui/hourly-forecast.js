@@ -27,6 +27,7 @@ const Hour = ({ data }) => {
       display: grid;
       grid-template-columns: var(--time-column) 1fr 1fr var(--precip-column);
       width: 100%;
+      line-height: 1;
     }
 
     $:nth-child(even) {
@@ -43,7 +44,7 @@ const Hour = ({ data }) => {
     }
 
     $ .dim {
-      opacity: 0.6
+      opacity: var(--dim);
     }
 
     @media (max-width: 560px) {
@@ -62,7 +63,7 @@ const Hour = ({ data }) => {
   return html`<div class=${classname}>
     <div>${getHour(date).toLowerCase()}<//>
     <div class="center"><${Emoji}>${weatherIcon}<//> ${noWrap(weatherStr)}<//>
-    <div class="center wrap"><b>${noWrap(temperatureStr)}</b> <span class="dim" title="feels like">(${noWrap(feelsLikeStr)})<//><//>
+    <div class="center wrap">${noWrap(temperatureStr)} <span class="dim" title="feels like">(${noWrap(feelsLikeStr)})<//><//>
     <div><${Emoji}>${precipIcon}<//> ${precipitationStr}<//>
   <//>`;
 };

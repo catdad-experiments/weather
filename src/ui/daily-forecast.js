@@ -25,6 +25,7 @@ const Day = ({ data }) => {
       padding: 10px;
       margin: 10px;
       border-radius: 10px;
+      line-height: 1.4;
     }
 
     $ .toggle {
@@ -35,7 +36,7 @@ const Day = ({ data }) => {
     }
 
     $ .dim {
-      opacity: 0.6
+      opacity: var(--dim);
     }
   `);
 
@@ -43,10 +44,12 @@ const Day = ({ data }) => {
     <div class="toggle" onclick=${() => { hourlyVisible.value = !hourlyVisible.value; }}><${Emoji}>${hourlyVisible.value ? '🔼' : '🔽'}<//><//>
 
     <div>${getDayName(date, 'long')}, ${getDate(date)} - <${Emoji}>${weatherIcon}<//> ${weatherStr}<//>
-    <div><b>${temperatureMaxStr} / ${temperatureMinStr}</b><//>
-    <div class="dim">feels like ${feelsLikeMaxStr} / ${feelsLikeMinStr}<//>
+    <div>
+      <span title="high">${temperatureMaxStr}<//> ↿⇂ <span title="low">${temperatureMinStr} <//>
+      <span class="dim" title="feels like">(${feelsLikeMaxStr} ↿⇂ ${feelsLikeMinStr})<//>
+    <//>
     ${precipitation > 0 ? html`<div>🌧 ${precipitationStr}<//>` : ''}
-    <div><${Emoji}>🌅<//>: ${getTime(sunrise)}, <${Emoji}>🌇<//>: ${getTime(sunset)}<//>
+    <div><${Emoji}>🌅<//>: ${getTime(sunrise)} • <${Emoji}>🌇<//>: ${getTime(sunset)}<//>
 
     ${hourlyVisible.value ? html`<${HourlyForecast} hourly=${hourly} />` : ''}
   <//>`;
