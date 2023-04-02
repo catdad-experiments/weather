@@ -14,6 +14,20 @@ export const CurrentWeather = () => {
     $ .dim {
       opacity: var(--dim);
     }
+
+    $ .flex {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    $ .row {
+      flex-direction: row;
+    }
+
+    $ .column {
+      flex-direction: column;
+    }
   `);
 
   if (!weather.value) {
@@ -22,9 +36,14 @@ export const CurrentWeather = () => {
 
   const { current } = weather.value;
 
-  // TODO current feels-like, etc.
   return html`<div class="${classname}">
-    <h2><${Emoji} style="font-size: 1.2em">${current.weatherIcon}<//> ${current.weatherStr}, ${current.temperatureStr}<//>
-    <p class="dim">feels like ${current.feelsLikeStr}<//>
+    <div class="flex row">
+      <${Emoji} style="font-size: 5em">${current.weatherIcon}<//>
+      <div class="flex column">
+        <span style="font-size: 2em; line-height: 1.2">${current.temperatureStr}<//>
+        <span class="dim" style="font-size: 0.9em; line-height: 2">feels ${current.feelsLikeStr}<//>
+      <//>
+    <//>
+    <div style="font-size: 1.5em; margin-bottom: 1rem;">${current.weatherStr}<//>
   <//>`;
 };
