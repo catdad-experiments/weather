@@ -49,7 +49,7 @@ const Day = ({ data }) => {
       <span class="dim" title="feels like">(${feelsLikeMaxStr} ↿⇂ ${feelsLikeMinStr})<//>
     <//>
     ${precipitation > 0 ? html`<div>🌧 ${precipitationStr}<//>` : ''}
-    <div><${Emoji}>🌅<//>: ${getTime(sunrise)} • <${Emoji}>🌇<//>: ${getTime(sunset)}<//>
+    <div><${Emoji}>🌅<//> ${getTime(sunrise)} • <${Emoji}>🌇<//> ${getTime(sunset)}<//>
 
     ${hourlyVisible.value ? html`<${HourlyForecast} hourly=${hourly} />` : ''}
   <//>`;
