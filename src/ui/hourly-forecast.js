@@ -18,8 +18,19 @@ const Hour = ({ data }) => {
 
   const precipIcon = snowfall > 0 ? '❄' : '🌧';
 
+  return html`<div class="hour">
+    <div>${getHour(date).toLowerCase()}<//>
+    <div class="center"><${Emoji}>${weatherIcon}<//> ${noWrap(weatherStr)}<//>
+    <div class="center wrap">${noWrap(temperatureStr)} <span class="dim" title="feels like">(${noWrap(feelsLikeStr)})<//><//>
+    <div><${Emoji}>${precipIcon}<//> ${precipitationStr}<//>
+  <//>`;
+};
+
+export const HourlyForecast = ({ hourly = [] } = {}) => {
+  const { weather } = useWeather();
+
   const classname = useStyle(`
-    $ {
+    $ .hour {
       --time-column: 60px;
       --precip-column: 85px;
 
@@ -30,12 +41,12 @@ const Hour = ({ data }) => {
       line-height: 1;
     }
 
-    $:nth-child(even) {
+    $ .hour:nth-child(even) {
       background: rgba(255,255,255,0.1);
       border-radius: 5px;
     }
 
-    $:first-of-type {
+    $ .hour:first-of-type {
       margin-top: 10px;
     }
 
@@ -52,7 +63,7 @@ const Hour = ({ data }) => {
         grid-template-columns: var(--time-column) 2fr 1fr var(--precip-column);
       }
 
-      $ div.wrap {
+      $ .wrap {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -60,20 +71,11 @@ const Hour = ({ data }) => {
     }
   `);
 
-  return html`<div class=${classname}>
-    <div>${getHour(date).toLowerCase()}<//>
-    <div class="center"><${Emoji}>${weatherIcon}<//> ${noWrap(weatherStr)}<//>
-    <div class="center wrap">${noWrap(temperatureStr)} <span class="dim" title="feels like">(${noWrap(feelsLikeStr)})<//><//>
-    <div><${Emoji}>${precipIcon}<//> ${precipitationStr}<//>
-  <//>`;
-};
-
-export const HourlyForecast = ({ hourly = [] } = {}) => {
-  const { weather } = useWeather();
-
   if (!weather.value) {
     return;
   }
 
-  return html`<div>${hourly.map(data => html`<${Hour} data=${data} />`)}<//>`;
+  return html`<div class="${classname}">
+    ${hourly.map(data => html`<${Hour} data=${data} />`)}
+  <//>`;
 };
