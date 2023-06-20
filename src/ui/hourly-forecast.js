@@ -58,11 +58,19 @@ export const HourlyForecast = ({ hourly = [] } = {}) => {
       opacity: var(--dim);
     }
 
-    @media (max-width: 560px) {
-      $ {
-        grid-template-columns: var(--time-column) 2fr 1fr var(--precip-column);
+    @media (max-width: 600px) {
+      $ .hour {
+        grid-template-columns: var(--time-column) 1fr 1fr 0px;
       }
 
+      $ .hour > *:nth-child(4) {
+        width: 0px;
+        height: 0px;
+        overflow: hidden;
+      }
+    }
+
+    @media (max-width: 420px) {
       $ .wrap {
         display: flex;
         flex-direction: column;
