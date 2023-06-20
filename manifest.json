@@ -1,6 +1,8 @@
 {
   "short_name": "Weather",
   "name": "Weather",
+  "description": "A simple weater PWA",
+  "categories": ["weather"],
   "start_url": "./",
   "icons": [{
     "src": "icons/48x48.png",
