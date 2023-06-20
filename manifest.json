@@ -16,9 +16,6 @@
     "src": "icons/512x512.png",
     "sizes": "512x512",
     "type": "image/png"
-  }, {
-    "src": "icons/icon.svg",
-    "sizes": "any"
   }],
   "background_color": "#202124",
   "display": "standalone",
