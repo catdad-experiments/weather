@@ -31,6 +31,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 14
+          registry-url: https://registry.npmjs.org/
+      - name: Install packages
+        run: npm install
+      - name: Create icons
+        run: npm run icons
+      - name: Remove files not for publishing
+        run: |
+          rm -rf assets node_modules README.md package.json package-lock.json
+          ls -lR
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Upload artifact

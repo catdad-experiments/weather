@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "xpos . --no-cache"
+    "dev": "xpos . --no-cache",
+    "icons": "svg-app-icon --include png --destination icons -s 48 -s 192 -s 512 --include svg < assets/icon.svg "
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,7 @@
   },
   "homepage": "https://github.com/catdad-experiments/weather#readme",
   "devDependencies": {
+    "svg-app-icon": "^1.1.0",
     "xpos": "https://github.com/catdad-experiments/xpos/tarball/a546f3a11249b70e68305319ca79b3f47a902848"
   }
 }
