@@ -21,4 +21,15 @@ const output = (...parts) => path.resolve(__dirname, '../icons', ...parts);
   })) {
     await fs.writeFile(output(icon.name), icon.buffer);
   }
+
+  for await (const icon of generateIcons([svg], {
+    ico: false,
+    icns: false,
+    svg: false,
+    png: true,
+    pngSizes: [512]
+  })) {
+    const name = `${path.parse(icon.name).name}-maskable.${icon.ext}`;
+    await fs.writeFile(output(name), icon.buffer);
+  }
 })();
