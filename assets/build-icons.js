@@ -10,8 +10,9 @@ const output = (...parts) => path.resolve(__dirname, '../icons', ...parts);
   await fs.mkdir(output());
 
   const svg = await fs.readFile(input('icon.svg'));
+  const mask = await fs.readFile(input('icon-mask.svg'));
 
-  for await (const icon of generateIcons(svg, {
+  for await (const icon of generateIcons([mask, svg], {
     ico: false,
     icns: false,
     svg: true,
