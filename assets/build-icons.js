@@ -33,4 +33,15 @@ const background = '#cac9c8';
     const name = `${path.parse(icon.name).name}-maskable.${icon.ext}`;
     await fs.writeFile(output(name), icon.buffer);
   }
+
+  for await (const icon of generateIcons([svg], {
+    ico: false,
+    icns: false,
+    svg: false,
+    png: true,
+    pngSizes: [48, 192]
+  })) {
+    const name = `${path.parse(icon.name).name}-monochrome.${icon.ext}`;
+    await fs.writeFile(output(name), icon.buffer);
+  }
 })();
