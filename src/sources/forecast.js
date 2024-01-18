@@ -102,12 +102,12 @@ export const getForecast = async (query) => {
       weatherIcon: codes[daily.weathercode[i]].icon,
       temperatureMin: daily.temperature_2m_min[i],
       temperatureMax: daily.temperature_2m_max[i],
-      temperatureMinStr: `${daily.temperature_2m_min[i]} ${tempUnit}`,
-      temperatureMaxStr: `${daily.temperature_2m_max[i]} ${tempUnit}`,
+      temperatureMinStr: `${Math.round(daily.temperature_2m_min[i])} ${tempUnit}`,
+      temperatureMaxStr: `${Math.round(daily.temperature_2m_max[i])} ${tempUnit}`,
       feelsLikeMin: daily.apparent_temperature_min[i],
       feelsLikeMax: daily.apparent_temperature_max[i],
-      feelsLikeMinStr: `${daily.apparent_temperature_min[i]} ${tempUnit}`,
-      feelsLikeMaxStr: `${daily.apparent_temperature_max[i]} ${tempUnit}`,
+      feelsLikeMinStr: `${Math.round(daily.apparent_temperature_min[i])} ${tempUnit}`,
+      feelsLikeMaxStr: `${Math.round(daily.apparent_temperature_max[i])} ${tempUnit}`,
 
       // precipication values, convert if necessary
       precipitationSum: convertMmToInch(daily.precipitation_sum[i]),
@@ -129,9 +129,9 @@ export const getForecast = async (query) => {
     hourlyMap.push({
       date,
       temperature: hourly.temperature_2m[i],
-      temperatureStr: `${hourly.temperature_2m[i]} ${tempUnit}`,
+      temperatureStr: `${Math.round(hourly.temperature_2m[i])} ${tempUnit}`,
       feelsLike: hourly.apparent_temperature[i],
-      feelsLikeStr: `${hourly.apparent_temperature[i]} ${tempUnit}`,
+      feelsLikeStr: `${Math.round(hourly.apparent_temperature[i])} ${tempUnit}`,
       visibility: hourly.visibility[i],
       visibilityStr: `${hourly.visibility[i]} meters`,
       weather: hourly.weathercode[i],
@@ -153,9 +153,9 @@ export const getForecast = async (query) => {
 
   const current = {
     temperature: current_weather.temperature,
-    temperatureStr: `${current_weather.temperature} ${tempUnit}`,
+    temperatureStr: `${Math.round(current_weather.temperature)} ${tempUnit}`,
     feelsLike: currentFeelsLike,
-    feelsLikeStr: `${currentFeelsLike} ${tempUnit}`,
+    feelsLikeStr: `${Math.round(currentFeelsLike)} ${tempUnit}`,
     weatherCode: current_weather.weathercode,
     weatherStr: codes[current_weather.weathercode].name,
     weatherIcon: codes[current_weather.weathercode].icon,
