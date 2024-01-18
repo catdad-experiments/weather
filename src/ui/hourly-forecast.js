@@ -60,7 +60,7 @@ export const HourlyForecast = ({ hourly = [] } = {}) => {
 
     @media (max-width: 600px) {
       $ .hour {
-        grid-template-columns: var(--time-column) 1fr 1fr 0px;
+        grid-template-columns: max-content auto max-content 0px;
       }
 
       $ .hour > *:nth-child(4) {
