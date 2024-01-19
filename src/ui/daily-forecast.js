@@ -20,12 +20,24 @@ const Day = ({ data }) => {
 
   const classname = useStyle(`
     $ {
+      --radius: 5px;
+      --big-radius: calc(var(--radius) * 3);
       position: relative;
-      border: 1px solid gray;
       padding: 10px;
       margin: 10px;
-      border-radius: 10px;
+      border-radius: var(--radius);
       line-height: 1.4;
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    $:first-of-type {
+      border-top-left-radius: var(--big-radius);
+      border-top-right-radius: var(--big-radius);
+    }
+
+    $:last-of-type {
+      border-bottom-left-radius: var(--big-radius);
+      border-bottom-right-radius: var(--big-radius);
     }
 
     $ .toggle {
