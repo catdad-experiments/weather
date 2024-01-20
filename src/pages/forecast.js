@@ -9,6 +9,10 @@ import { DailyForecast } from "../ui/daily-forecast.js";
 export const Forecast = () => {
   const { location, weather,  } = useWeather();
 
+  if (!location.value || !weather.value) {
+    return html`<div>Working on it...</div>`;
+  }
+
   return html`
     <${CurrentLocation} />
     <${CurrentWeather} />
