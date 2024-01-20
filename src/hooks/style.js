@@ -1,4 +1,4 @@
-import { useSignal, useComputed, useEffect } from "./preact.js";
+import { useSignal, useComputed, useEffect } from "../preact.js";
 
 const random = () => `x${Math.random().toString(36).slice(2)}`;
 

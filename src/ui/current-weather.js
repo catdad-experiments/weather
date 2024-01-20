@@ -1,7 +1,7 @@
 import { html } from '../preact.js';
-import { useWeather } from '../weather.js';
+import { useWeather } from '../hooks/weather.js';
 import { Emoji } from './emoji.js';
-import { useStyle } from '../style.js';
+import { useStyle } from '../hooks/style.js';
 
 export const CurrentWeather = () => {
   const { weather } = useWeather();

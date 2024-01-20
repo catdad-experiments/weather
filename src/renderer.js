@@ -1,7 +1,7 @@
 import { html, render } from './preact.js';
-import { useWeather, withWeather } from './weather.js';
+import { useWeather, withWeather } from './hooks/weather.js';
 import { getDateTime } from './utils.js';
-import { useRoutes, withRoutes } from './routes.js';
+import { useRoutes, withRoutes } from './hooks/routes.js';
 
 import { Location } from './ui/location.js';
 import { CurrentWeather } from './ui/current-weather.js';

@@ -1,8 +1,8 @@
 import { html } from '../preact.js';
-import { useWeather } from '../weather.js';
+import { useWeather } from '../hooks/weather.js';
 import { getHour } from '../utils.js';
 import { Emoji } from './emoji.js';
-import { useStyle } from '../style.js';
+import { useStyle } from '../hooks/style.js';
 
 const nbsp = '\xa0';
 const noWrap = str => str.replace(/ /g, nbsp);

@@ -1,6 +1,6 @@
-import { createContext, useContext, useEffect, html, signal, effect, useSignal } from './preact.js';
-import { getForecast } from './sources/forecast.js';
-import { getPosition } from './sources/position.js';
+import { createContext, useContext, useEffect, html, signal, effect, useSignal } from '../preact.js';
+import { getForecast } from '../sources/forecast.js';
+import { getPosition } from '../sources/position.js';
 
 const Weather = createContext({});
 

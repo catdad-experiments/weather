@@ -1,4 +1,4 @@
-import { createContext, useContext, html, useSignal } from './preact.js';
+import { createContext, useContext, html, useSignal } from '../preact.js';
 
 const Routes = createContext({});
 
