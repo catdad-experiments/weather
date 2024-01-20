@@ -1,5 +1,6 @@
 import { html } from '../preact.js';
 import { useWeather } from "../hooks/weather.js";
+import { useLocation } from '../hooks/location.js';
 import { getDateTime } from "../utils.js";
 
 import { CurrentLocation } from "../ui/current-location.js";
@@ -7,7 +8,8 @@ import { CurrentWeather } from "../ui/current-weather.js";
 import { DailyForecast } from "../ui/daily-forecast.js";
 
 export const Forecast = () => {
-  const { location, weather } = useWeather();
+  const { location } = useLocation();
+  const { weather } = useWeather();
 
   if (!location.value || !weather.value) {
     return html`<div>Working on it...</div>`;

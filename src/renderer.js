@@ -1,4 +1,5 @@
 import { html, render } from './preact.js';
+import { withLocation } from './hooks/location.js';
 import { withWeather } from './hooks/weather.js';
 import { useRoutes, withRoutes } from './hooks/routes.js';
 
@@ -15,7 +16,7 @@ const Router = () => {
   }
 };
 
-const App = withRoutes(withWeather(() => html`<${Router} />`));
+const App = withRoutes(withLocation(withWeather(() => html`<${Router} />`)));
 
 export default () => {
   render(html`<${App} />`, document.querySelector('#main'));

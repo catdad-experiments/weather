@@ -1,11 +1,12 @@
-import { createContext, useContext, useEffect, html, signal, effect, useSignal } from '../preact.js';
+import { createContext, useContext, html, effect, useSignal } from '../preact.js';
 import { getForecast } from '../sources/forecast.js';
-import { getPosition } from '../sources/position.js';
+
+import { useLocation } from './location.js';
 
 const Weather = createContext({});
 
 export const withWeather = Component => ({ children, ...props }) => {
-  const location = useSignal(null);
+  const { location } = useLocation();
   const weather = useSignal(null);
   const temperatureUnit = useSignal('fahrenheit'); // celsius, fahrenheit
   const windspeedUnit = useSignal('mph'); // kmh, ms, mph, kn,
@@ -35,17 +36,8 @@ export const withWeather = Component => ({ children, ...props }) => {
     });
   });
 
-  useEffect(() => {
-    getPosition().then(position => {
-      location.value = { ...position };
-    }).catch(err => {
-      // TODO
-      console.error('failed to get position:', err);
-    });
-  }, []);
-
   return html`
-    <${Weather.Provider} value=${{ location, weather }}>
+    <${Weather.Provider} value=${{ weather }}>
       <${Component} ...${props}>${children}<//>
     <//>
   `;
