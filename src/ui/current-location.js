@@ -2,7 +2,7 @@ import { html } from '../preact.js';
 import { useWeather } from '../hooks/weather.js';
 import { useStyle } from '../hooks/style.js';
 
-export const Location = () => {
+export const CurrentLocation = () => {
   const { location, weather } = useWeather();
 
   const classname = useStyle(`

@@ -2,7 +2,7 @@ import { html, render } from './preact.js';
 import { useWeather, withWeather } from './hooks/weather.js';
 import { useRoutes, withRoutes } from './hooks/routes.js';
 
-import { Location } from './ui/location.js';
+import { CurrentLocation } from './ui/current-location.js';
 import { Forecast } from './pages/forecast.js';
 
 const Router = () => {
@@ -14,7 +14,7 @@ const Router = () => {
   }
 
   if (location.value) {
-    return html`<${Location} />`;
+    return html`<${CurrentLocation} />`;
   }
 
   // TODO allow user to manually trigger location fetching or type a location name
