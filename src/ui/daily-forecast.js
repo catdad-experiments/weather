@@ -20,8 +20,8 @@ const Day = ({ data }) => {
 
   const classname = useStyle(`
     $ {
-      --radius: 5px;
-      --big-radius: calc(var(--radius) * 3);
+      --radius: 10px;
+      --big-radius: calc(var(--radius) * 2);
       position: relative;
       padding: 10px;
       margin: 10px;
