@@ -1,12 +1,14 @@
 import { html, render } from './preact.js';
 import { useWeather, withWeather } from './weather.js';
 import { getDateTime } from './utils.js';
+import { useRoutes, withRoutes } from './routes.js';
 
 import { Location } from './ui/location.js';
 import { CurrentWeather } from './ui/current-weather.js';
 import { DailyForecast } from './ui/daily-forecast.js';
 
-const App = withWeather(() => {
+const Router = () => {
+  const { route } = useRoutes();
   const { location, weather,  } = useWeather();
 
   if (weather.value) {
@@ -31,7 +33,9 @@ const App = withWeather(() => {
 
   // TODO allow user to manually trigger location fetching or type a location name
   return html`<div>Working on it...</div>`;
-});
+};
+
+const App = withRoutes(withWeather(() => html`<${Router} />`));
 
 export default () => {
   render(html`<${App} />`, document.querySelector('#main'));
