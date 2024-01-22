@@ -1,9 +1,9 @@
 import { html, useSignal } from '../preact.js';
-import { useWeather } from '../weather.js';
+import { useWeather } from '../hooks/weather.js';
 import { getDayName, getDate, getTime } from '../utils.js';
 import { Emoji } from './emoji.js';
 import { HourlyForecast } from './hourly-forecast.js';
-import { useStyle } from '../style.js';
+import { useStyle } from '../hooks/style.js';
 
 const Day = ({ data }) => {
   const {

@@ -1,37 +1,22 @@
 import { html, render } from './preact.js';
-import { useWeather, withWeather } from './weather.js';
-import { getDateTime } from './utils.js';
+import { withLocation } from './hooks/location.js';
+import { withWeather } from './hooks/weather.js';
+import { useRoutes, withRoutes } from './hooks/routes.js';
 
-import { Location } from './ui/location.js';
-import { CurrentWeather } from './ui/current-weather.js';
-import { DailyForecast } from './ui/daily-forecast.js';
+import { Forecast } from './pages/forecast.js';
 
-const App = withWeather(() => {
-  const { location, weather,  } = useWeather();
+const Router = () => {
+  const { route } = useRoutes();
 
-  if (weather.value) {
-    return html`
-      <${Location} />
-      <${CurrentWeather} />
-      <div>
-        refreshed: ${getDateTime(weather.value.date)}
-        <span> <//>
-        <button onclick=${() => {
-          location.value = {...location.value};
-        }}>refresh now<//>
-      <//>
-      <${DailyForecast} />
-      <div><a href="https://open-meteo.com/">Weather data by Open-Meteo.com</a><//>
-    `;
+  switch (route.value) {
+    case 'forecast':
+      return html`<${Forecast} />`;
+    default:
+      return html`<div>Loading...</div>`;
   }
+};
 
-  if (location.value) {
-    return html`<${Location} />`;
-  }
-
-  // TODO allow user to manually trigger location fetching or type a location name
-  return html`<div>Working on it...</div>`;
-});
+const App = withRoutes(withLocation(withWeather(() => html`<${Router} />`)));
 
 export default () => {
   render(html`<${App} />`, document.querySelector('#main'));
