@@ -7,10 +7,13 @@ export const withLocation = Component => ({ children, ...props }) => {
   const location = useSignal(null);
 
   useEffect(() => {
-    getPosition().then(position => {
+    (async () => {
+      // const { state: geolocationPermission } = await navigator.permissions.query({ name: 'geolocation' });
+
+      const position = await getPosition();
       console.log('got new location', position);
       location.value = { ...position, type: 'device' };
-    }).catch(err => {
+    })().catch(err => {
       // TODO
       console.error('failed to get position:', err);
     });
