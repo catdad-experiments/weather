@@ -8,20 +8,25 @@ export const withLocation = Component => ({ children, ...props }) => {
   const location = useSignal(null);
   const { route, ROUTES } = useRoutes();
 
+  const useDeviceLocation = async () => {
+    const position = await getPosition();
+    console.log('got new location', position);
+    location.value = { ...position, type: 'device' };
+  };
+
   useEffect(() => {
     (async () => {
       const { state: geolocationPermission } = await navigator.permissions.query({ name: 'geolocation' });
 
       if (geolocationPermission === 'granted') {
-        const position = await getPosition();
-        console.log('got new location', position);
-        location.value = { ...position, type: 'device' };
+        await useDeviceLocation();
       } else {
         route.value = ROUTES.location;
       }
     })().catch(err => {
       // TODO
       console.error('failed to get position:', err);
+      route.value = ROUTES.location;
     });
   }, []);
 
@@ -30,7 +35,7 @@ export const withLocation = Component => ({ children, ...props }) => {
   }
 
   return html`
-    <${Location.Provider} value=${{ location }}>
+    <${Location.Provider} value=${{ location, useDeviceLocation }}>
       <${Component} ...${props}>${children}<//>
     <//>
   `;

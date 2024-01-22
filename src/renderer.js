@@ -4,6 +4,7 @@ import { withWeather } from './hooks/weather.js';
 import { useRoutes, withRoutes } from './hooks/routes.js';
 
 import { Forecast } from './pages/forecast.js';
+import { Location } from './pages/location.js';
 
 const Router = () => {
   const { route, ROUTES } = useRoutes();
@@ -12,7 +13,7 @@ const Router = () => {
     case ROUTES.forecast:
       return html`<${Forecast} />`;
     case ROUTES.location:
-      return html`<div>TODO implement location search<//>`;
+      return html`<${Location} />`;
     default:
       return html`<div>Loading...</div>`;
   }
