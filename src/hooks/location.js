@@ -9,12 +9,16 @@ export const withLocation = Component => ({ children, ...props }) => {
   useEffect(() => {
     getPosition().then(position => {
       console.log('got new location', position);
-      location.value = { ...position };
+      location.value = { ...position, type: 'device' };
     }).catch(err => {
       // TODO
       console.error('failed to get position:', err);
     });
   }, []);
+
+  if (!location.value) {
+    return html`<div>Getting location...<//>`;
+  }
 
   return html`
     <${Location.Provider} value=${{ location }}>
