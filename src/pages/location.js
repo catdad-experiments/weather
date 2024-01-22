@@ -35,8 +35,12 @@ export const Location = () => {
     }
   `);
 
-  return html`<div class="${classname}">
-    <${LocationChip} editable />
+  const onInputChange = ({ value }) => {
+    console.log('new location value input:', value);
+  };
+
+  return html`<div class="${classname} limit">
+    <${LocationChip} editable onChange=${onInputChange} />
     <${UseDeviceLocation} />
   <//>`;
 };

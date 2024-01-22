@@ -3,7 +3,7 @@ import { useLocation } from '../hooks/location.js';
 import { useWeather } from '../hooks/weather.js';
 import { useStyle } from '../hooks/style.js';
 
-export const LocationChip = ({ editable = false, onClick = () => {} } = {}) => {
+export const LocationChip = ({ editable = false, onClick = () => {}, onChange = () => {} } = {}) => {
   const { location } = useLocation();
 
   const classname = useStyle(`
@@ -20,6 +20,7 @@ export const LocationChip = ({ editable = false, onClick = () => {} } = {}) => {
       background: none;
       font-size: 1rem;
       color: var(--foreground);
+      width: 100%;
     }
 
     $ input::placeholder {
@@ -29,13 +30,20 @@ export const LocationChip = ({ editable = false, onClick = () => {} } = {}) => {
     $ input:disabled {
       color: var(--foreground);
       opacity: 1;
+      pointer-events: none;
     }
   `);
 
   const { latitude, longitude, city, locality } = location.value;
 
+  const placeholder = editable ? 'Search...' :
+    city && locality ? `${locality}, ${city}` : 'Unknown location';
+
   return html`<div class="${classname}" onClick=${onClick}>
-    <input disabled=${!editable} placeholder=${`${locality}, ${city}`} />
+    <input disabled=${!editable} placeholder=${placeholder} onChange=${ev => {
+      const value = ev.target.value;
+      onChange({ value });
+    }} />
   <//>`
 };
 
