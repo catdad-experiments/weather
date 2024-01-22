@@ -6,11 +6,13 @@ import { useRoutes, withRoutes } from './hooks/routes.js';
 import { Forecast } from './pages/forecast.js';
 
 const Router = () => {
-  const { route } = useRoutes();
+  const { route, ROUTES } = useRoutes();
 
   switch (route.value) {
-    case 'forecast':
+    case ROUTES.forecast:
       return html`<${Forecast} />`;
+    case ROUTES.location:
+      return html`<div>TODO implement location search<//>`;
     default:
       return html`<div>Loading...</div>`;
   }
