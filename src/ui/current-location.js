@@ -41,10 +41,10 @@ export const LocationChip = ({ editable = false, onClick = () => {}, onChange = 
     }
   `);
 
-  const { city, locality } = location.value;
+  const { description: placeDescription } = location.value;
 
   const placeholder = editable ? 'Search...' :
-    city && locality ? `${locality}, ${city}` : 'Unknown location';
+    placeDescription ? `${placeDescription}` : 'Unknown location';
 
   return html`<div class="${classname}" onClick=${onClick}>
     <${Emoji}>🔎<//>
@@ -81,12 +81,12 @@ export const CurrentLocation = () => {
     return;
   }
 
-  const { latitude, longitude, city, locality } = location.value;
+  const { latitude, longitude, description: placeDescription } = location.value;
   const { elevation } = weather.value || {};
 
   return html`<div class="${classname}">
-    ${locality ?
-      html`<h2>${locality}, ${city}<//>` :
+    ${placeDescription ?
+      html`<h2>${placeDescription}<//>` :
       html`<h2>Unknown location<//>`
     }
     <div class="dim">${latitude}, ${longitude}<//>

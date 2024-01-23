@@ -14,6 +14,15 @@ export const withLocation = Component => ({ children, ...props }) => {
     location.value = { ...position, type: 'device' };
   };
 
+  const setLocation = ({ latitude, longitude, description }) => {
+    location.value = {
+      latitude,
+      longitude,
+      description,
+      type: 'manual'
+    };
+  };
+
   useEffect(() => {
     (async () => {
       const { state: geolocationPermission } = await navigator.permissions.query({ name: 'geolocation' });
@@ -35,7 +44,7 @@ export const withLocation = Component => ({ children, ...props }) => {
   }
 
   return html`
-    <${Location.Provider} value=${{ location, useDeviceLocation }}>
+    <${Location.Provider} value=${{ location, useDeviceLocation, setLocation }}>
       <${Component} ...${props}>${children}<//>
     <//>
   `;
