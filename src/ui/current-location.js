@@ -47,7 +47,7 @@ export const LocationChip = ({ editable = false, autofocus = false, onClick = ()
     placeDescription ? `${placeDescription}` : 'Unknown location';
 
   return html`<div class="${classname}" onClick=${onClick}>
-    <${Emoji}>🔎<//>
+    <${Emoji}>${editable ? '🔎' : '📍'}<//>
     <input disabled=${!editable} autofocus=${autofocus} placeholder=${placeholder} onChange=${ev => {
       const value = ev.target.value;
       onChange({ value });
