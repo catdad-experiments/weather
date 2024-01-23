@@ -41,7 +41,7 @@ export const LocationChip = ({ editable = false, onClick = () => {}, onChange = 
     }
   `);
 
-  const { latitude, longitude, city, locality } = location.value;
+  const { city, locality } = location.value;
 
   const placeholder = editable ? 'Search...' :
     city && locality ? `${locality}, ${city}` : 'Unknown location';
