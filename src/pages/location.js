@@ -103,5 +103,4 @@ export const Location = () => {
     <${UseDeviceLocation} />
     <${SearchResults} results=${searchResults.value} />
   <//>`;
-  // <div class="${classname} limit">
 };
