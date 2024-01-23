@@ -81,12 +81,6 @@ const SearchResults = ({ results }) => {
 export const Location = () => {
   const searchResults = useSignal(null);
 
-  const classname = useStyle(`
-    $ {
-
-    }
-  `);
-
   const onInputChange = ({ value }) => {
     geocode(value).then(results => {
       console.log(`📍 "${value}" lookup:`, results);
@@ -97,7 +91,6 @@ export const Location = () => {
   };
 
   return html`<${Scaffold}
-    class="${classname}"
     header=${html`<${LocationChip} editable autofocus onChange=${onInputChange} />`}
   >
     <${UseDeviceLocation} />
