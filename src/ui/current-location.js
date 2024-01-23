@@ -4,7 +4,7 @@ import { useWeather } from '../hooks/weather.js';
 import { useStyle } from '../hooks/style.js';
 import { Emoji } from './emoji.js';
 
-export const LocationChip = ({ editable = false, onClick = () => {}, onChange = () => {} } = {}) => {
+export const LocationChip = ({ editable = false, autofocus = false, onClick = () => {}, onChange = () => {} } = {}) => {
   const { location } = useLocation();
 
   const classname = useStyle(`
@@ -48,7 +48,7 @@ export const LocationChip = ({ editable = false, onClick = () => {}, onChange = 
 
   return html`<div class="${classname}" onClick=${onClick}>
     <${Emoji}>🔎<//>
-    <input disabled=${!editable} placeholder=${placeholder} onChange=${ev => {
+    <input disabled=${!editable} autofocus=${autofocus} placeholder=${placeholder} onChange=${ev => {
       const value = ev.target.value;
       onChange({ value });
     }} />

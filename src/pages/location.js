@@ -94,7 +94,7 @@ export const Location = () => {
   };
 
   return html`<div class="${classname} limit">
-    <${LocationChip} editable onChange=${onInputChange} />
+    <${LocationChip} editable autofocus onChange=${onInputChange} />
     <${UseDeviceLocation} />
     <${SearchResults} results=${searchResults.value} />
   <//>`;
