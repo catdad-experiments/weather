@@ -49,7 +49,7 @@ const SearchResults = ({ results }) => {
     return html`<div>No results found.<//>`;
   }
 
-  return html`${results.map(place => html`<div id="${place.description}" onClick=${() => {
+  return results.map(place => html`<div id="${place.description}" onClick=${() => {
     batch(() => {
       setLocation({
         latitude: place.latitude,
@@ -60,7 +60,7 @@ const SearchResults = ({ results }) => {
     });
   }}>
     ${place.name}, ${place.description}
-  <//>`)}`;
+  <//>`);
 };
 
 export const Location = () => {
