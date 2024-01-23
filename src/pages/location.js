@@ -5,7 +5,7 @@ import { useRoutes } from '../hooks/routes.js';
 import { geocode } from '../sources/geocode.js';
 
 import { Button } from '../ui/button.js';
-import { CurrentLocation, LocationChip } from "../ui/current-location.js";
+import { LocationDetails, LocationChip } from "../ui/current-location.js";
 import { Emoji } from '../ui/emoji.js';
 
 // https://dev.to/jorik/country-code-to-flag-emoji-a21
@@ -18,8 +18,10 @@ function getFlagEmoji(countryCode) {
 }
 
 const UseDeviceLocation = () => {
-  const { location, useDeviceLocation } = useLocation();
+  const { history, useDeviceLocation } = useLocation();
   const { route, ROUTES } = useRoutes();
+
+  const deviceLocation = history.value.find(a => a.type === 'device');
 
   const classname = useStyle(`
     $ {
@@ -37,12 +39,12 @@ const UseDeviceLocation = () => {
     });
   }}>Use device location<//>`;
 
-  if (!location.value) {
+  if (!deviceLocation) {
     return button;
   }
 
   return html`<div class="${classname}">
-    <${CurrentLocation} />
+    <${LocationDetails} location=${deviceLocation} />
     ${button}
   <//>`;
 };

@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, html, useSignal } from '../preact.js';
+import { createContext, useContext, useEffect, html, useSignal, batch } from '../preact.js';
 import { getPosition } from '../sources/position.js';
 import { useRoutes } from './routes.js';
 
@@ -6,21 +6,30 @@ const Location = createContext({});
 
 export const withLocation = Component => ({ children, ...props }) => {
   const location = useSignal(null);
+  const history = useSignal([]);
   const { route, ROUTES } = useRoutes();
 
   const useDeviceLocation = async () => {
     const position = await getPosition();
     console.log('got new location', position);
-    location.value = { ...position, type: 'device' };
+    setLocation({
+      ...position,
+      type: 'device'
+    });
   };
 
-  const setLocation = ({ latitude, longitude, description }) => {
-    location.value = {
-      latitude,
-      longitude,
-      description,
-      type: 'manual'
-    };
+  const setLocation = ({ latitude, longitude, description, type = 'manual' }) => {
+    batch(() => {
+      const value = {
+        latitude,
+        longitude,
+        description,
+        type
+      };
+
+      location.value = { ...value };
+      history.value = [...history.value, { ...value }];
+    });
   };
 
   useEffect(() => {
@@ -44,7 +53,7 @@ export const withLocation = Component => ({ children, ...props }) => {
   }
 
   return html`
-    <${Location.Provider} value=${{ location, useDeviceLocation, setLocation }}>
+    <${Location.Provider} value=${{ location, history, useDeviceLocation, setLocation }}>
       <${Component} ...${props}>${children}<//>
     <//>
   `;

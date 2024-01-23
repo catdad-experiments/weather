@@ -55,10 +55,7 @@ export const LocationChip = ({ editable = false, autofocus = false, onClick = ()
   <//>`
 };
 
-export const CurrentLocation = () => {
-  const { location } = useLocation();
-  const { weather } = useWeather();
-
+export const LocationDetails = ({ location }) => {
   const classname = useStyle(`
     $ {
       text-align: center;
@@ -77,12 +74,7 @@ export const CurrentLocation = () => {
     }
   `);
 
-  if (!location.value) {
-    return;
-  }
-
-  const { latitude, longitude, description: placeDescription } = location.value;
-  const { elevation } = weather.value || {};
+  const { latitude, longitude, description: placeDescription, elevation } = location;
 
   return html`<div class="${classname}">
     ${placeDescription ?
@@ -90,6 +82,21 @@ export const CurrentLocation = () => {
       html`<h2>Unknown location<//>`
     }
     <div class="dim">${latitude}, ${longitude}<//>
-    <div class="dim">Elevation: ${elevation} meters<//>
+    ${elevation !== undefined ? html`<div class="dim">Elevation: ${elevation} meters<//>` : null}
   <//>`;
+};
+
+export const CurrentLocation = () => {
+  const { location } = useLocation();
+  const { weather } = useWeather();
+
+  if (!location.value) {
+    return;
+  }
+
+  const { elevation } = weather.value || {};
+
+  const data = { ...location.value, elevation };
+
+  return html`<${LocationDetails} location=${data} />`;
 };
