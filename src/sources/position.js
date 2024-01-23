@@ -6,7 +6,7 @@ export const lookupPosition = async ({ latitude, longitude }) => {
 
   const { locality, city } = json;
 
-  return { latitude, longitude, description: `${city}, ${locality}` };
+  return { latitude, longitude, description: `${locality}, ${city}` };
 };
 
 export const getPosition = async () => {
