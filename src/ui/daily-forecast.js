@@ -24,7 +24,7 @@ const Day = ({ data }) => {
       --big-radius: calc(var(--radius) * 2);
       position: relative;
       padding: 10px;
-      margin: 10px;
+      margin: var(--side-margins);
       border-radius: var(--radius);
       line-height: 1.4;
       background: rgba(255, 255, 255, 0.05);

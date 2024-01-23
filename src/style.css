@@ -57,6 +57,8 @@ html, body {
 }
 
 .limit {
+  --side-margins: 10px;
+
   width: 100%;
   max-width: var(--limit);
   margin-left: auto;

@@ -11,9 +11,9 @@ export const LocationChip = ({ editable = false, autofocus = false, onClick = ()
     $ {
       background: rgba(255, 255, 255, 0.2);
       padding: 0.5rem 1rem;
-      margin: 1rem 0;
+      margin: 1rem var(--side-margins);
       border-radius: 1.5rem;
-      width: 100%;
+      width: calc(100% - calc(var(--side-margins) * 2));
 
       display: flex;
       flex-direction: row;
