@@ -6,6 +6,16 @@ import { geocode } from '../sources/geocode.js';
 
 import { Button } from '../ui/button.js';
 import { CurrentLocation, LocationChip } from "../ui/current-location.js";
+import { Emoji } from '../ui/emoji.js';
+
+// https://dev.to/jorik/country-code-to-flag-emoji-a21
+function getFlagEmoji(countryCode) {
+  const codePoints = countryCode
+    .toUpperCase()
+    .split('')
+    .map(char =>  127397 + char.charCodeAt());
+  return String.fromCodePoint(...codePoints);
+}
 
 const UseDeviceLocation = () => {
   const { location, useDeviceLocation } = useLocation();
@@ -59,7 +69,9 @@ const SearchResults = ({ results }) => {
       route.value = ROUTES.forecast;
     });
   }}>
-    ${place.name}, ${place.description}
+    <${Emoji}>${getFlagEmoji(place.countryCode)}<//>
+    <span>${'\u00A0' /* nbsp */}<//>
+    <span>${place.name}, ${place.description}<//>
   <//>`);
 };
 

@@ -14,6 +14,7 @@ export const geocode = async search => {
       // place.admin3,
       // place.admin4,
       place.country
-    ].filter(a => !!a).join(', ')
+    ].filter(a => !!a).join(', '),
+    countryCode: place.country_code
   }));
 };
