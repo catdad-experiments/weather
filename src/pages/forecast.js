@@ -4,7 +4,8 @@ import { useLocation } from '../hooks/location.js';
 import { useRoutes } from '../hooks/routes.js';
 import { getDateTime } from "../utils.js";
 
-import { CurrentLocation, LocationChip } from "../ui/current-location.js";
+import { Scaffold } from '../ui/scaffold.js';
+import { LocationChip } from "../ui/current-location.js";
 import { CurrentWeather } from "../ui/current-weather.js";
 import { DailyForecast } from "../ui/daily-forecast.js";
 
@@ -21,10 +22,11 @@ export const Forecast = () => {
     route.value = ROUTES.location;
   };
 
-  return html`
-    <${LocationChip} onClick=${onLocationClick} />
+  return html`<${Scaffold}
+    header=${html`<${LocationChip} onClick=${onLocationClick} />`}
+  >
     <${CurrentWeather} />
-    <div>
+    <div class="center">
       refreshed: ${getDateTime(weather.value.date)}
       <span> <//>
       <button onclick=${() => {
@@ -32,6 +34,5 @@ export const Forecast = () => {
       }}>refresh now<//>
     <//>
     <${DailyForecast} />
-    <div><a href="https://open-meteo.com/">Weather data by Open-Meteo.com</a><//>
-  `;
+  <//>`;
 };

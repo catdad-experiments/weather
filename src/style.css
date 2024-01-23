@@ -65,6 +65,10 @@ html, body {
   margin-right: auto;
 }
 
+.center {
+  text-align: center;
+}
+
 .hide {
   display: none !important;
 }
@@ -96,12 +100,12 @@ body {
 
 .main {
   position: relative;
+  min-height: 100vh;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding-bottom: calc(var(--spacing));
 }
 
 i.material-icons {

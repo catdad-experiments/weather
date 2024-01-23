@@ -14,7 +14,7 @@ export const withWeather = Component => ({ children, ...props }) => {
 
   // when coordinates change, fetch the new weather
   effect(() => {
-    if (!location.value) {
+    if (!('latitude' in location.value)) {
       return;
     }
 

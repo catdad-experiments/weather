@@ -5,7 +5,7 @@ import { useRoutes } from './routes.js';
 const Location = createContext({});
 
 export const withLocation = Component => ({ children, ...props }) => {
-  const location = useSignal(null);
+  const location = useSignal({});
   const history = useSignal([]);
   const { route, ROUTES } = useRoutes();
 

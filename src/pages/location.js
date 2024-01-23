@@ -4,6 +4,7 @@ import { useStyle } from '../hooks/style.js';
 import { useRoutes } from '../hooks/routes.js';
 import { geocode } from '../sources/geocode.js';
 
+import { Scaffold } from '../ui/scaffold.js';
 import { Button } from '../ui/button.js';
 import { LocationDetails, LocationChip } from "../ui/current-location.js";
 import { Emoji } from '../ui/emoji.js';
@@ -95,9 +96,12 @@ export const Location = () => {
     });
   };
 
-  return html`<div class="${classname} limit">
-    <${LocationChip} editable autofocus onChange=${onInputChange} />
+  return html`<${Scaffold}
+    class="${classname}"
+    header=${html`<${LocationChip} editable autofocus onChange=${onInputChange} />`}
+  >
     <${UseDeviceLocation} />
     <${SearchResults} results=${searchResults.value} />
   <//>`;
+  // <div class="${classname} limit">
 };
