@@ -1,4 +1,4 @@
-import { createContext, useContext, html, effect, useSignal } from '../preact.js';
+import { createContext, useContext, html, useSignal, useEffect } from '../preact.js';
 import { getForecast } from '../sources/forecast.js';
 
 import { useLocation } from './location.js';
@@ -13,12 +13,14 @@ export const withWeather = Component => ({ children, ...props }) => {
   const precipitationUnit = useSignal('inch'); // mm, inch
 
   // when coordinates change, fetch the new weather
-  effect(() => {
-    if (!('latitude' in location.value)) {
+  // for some reason, `effect` is executed twice on
+  // a single `location` change
+  useEffect(() => {
+    const { latitude, longitude } = location.value;
+
+    if (latitude === undefined) {
       return;
     }
-
-    const { latitude, longitude } = location.value;
 
     const query = {
       latitude,
@@ -34,7 +36,7 @@ export const withWeather = Component => ({ children, ...props }) => {
       // TODO
       console.error('failed to fetch weather data:', err);
     });
-  });
+  }, [location.value.latitude, location.value.longitude]);
 
   return html`
     <${Weather.Provider} value=${{ weather }}>
