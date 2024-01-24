@@ -11,8 +11,10 @@ const fonts = [
   "Android Emoji",
   'system emoji',
   'sans-serif'
-];
+].map(a => `"${a}"`).join(',');
 
 export const Emoji = ({ children, style, ...props }) => {
-  return html`<span ...${props} style="${style}; font-family: ${fonts.join(',')}">${children}<//>`;
+  return html`<span ...${props} style="${style}; font-family: ${fonts}">${children}<//>`;
 };
+
+export const useEmojiFont = () => fonts;

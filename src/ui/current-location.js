@@ -2,32 +2,40 @@ import { html } from '../preact.js';
 import { useLocation } from '../hooks/location.js';
 import { useWeather } from '../hooks/weather.js';
 import { useStyle } from '../hooks/style.js';
-import { Emoji } from './emoji.js';
+import { useEmojiFont } from './emoji.js';
 
 export const LocationChip = ({ editable = false, autofocus = false, onClick = () => {}, onChange = () => {} } = {}) => {
   const { location } = useLocation();
 
+  const emojiFont = useEmojiFont();
+
   const classname = useStyle(`
     $ {
-      background: rgba(255, 255, 255, 0.2);
-      padding: 0.5rem 1rem;
       margin: 1rem var(--side-margins);
-      border-radius: 1.5rem;
       width: calc(100% - calc(var(--side-margins) * 2));
+      position: relative;
+    }
 
-      display: flex;
-      flex-direction: row;
-      flex: 1 100%;
+    $:after {
+      content: var(--icon);
+      position: absolute;
+      top: 50%;
+      transform: translate(0px, -50%);
+      left: 1.5rem;
+      font-family: ${emojiFont};
     }
 
     $ input {
       border: none;
-      background: none;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 1.5rem;
+
       font-size: 1rem;
       color: var(--foreground);
       width: 100%;
       font-weight: bold;
       margin-left: 0.5rem;
+      padding: 0.5rem 1rem 0.5rem 3rem;
     }
 
     $ input::placeholder {
@@ -39,15 +47,20 @@ export const LocationChip = ({ editable = false, autofocus = false, onClick = ()
       opacity: 1;
       pointer-events: none;
     }
+
+    $ input:focus {
+      border: none;
+      outline: none;
+      box-shadow: 0 0 4px 0px var(--background), 0 0 8px -2px var(--foreground);
+    }
   `);
 
   const { description: placeDescription } = location.value;
 
-  const placeholder = editable ? 'Search...' :
+  const placeholder = editable ? 'Search for a location' :
     placeDescription ? `${placeDescription}` : 'Unknown location';
 
-  return html`<div class="${classname}" onClick=${onClick}>
-    <${Emoji}>${editable ? '🔎' : '📍'}<//>
+  return html`<div class="${classname}" style="--icon: '${editable ? '🔎' : '📍'}'" onClick=${onClick}>
     <input disabled=${!editable} autofocus=${autofocus} placeholder=${placeholder} onChange=${ev => {
       const value = ev.target.value;
       onChange({ value });

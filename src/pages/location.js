@@ -30,23 +30,21 @@ const UseDeviceLocation = () => {
       flex-direction: column;
       align-items: center;
     }
+
+    $ button {
+      display: block;
+    }
   `);
 
-  const button = html`<${Button} onClick=${() => {
-    useDeviceLocation().then(() => {
-      route.value = ROUTES.forecast;
-    }).catch(err => {
-      console.log('failed to use device location on user request:', err);
-    });
-  }}>Use device location<//>`;
-
-  if (!deviceLocation) {
-    return button;
-  }
-
   return html`<div class="${classname}">
-    <${LocationDetails} location=${deviceLocation} />
-    ${button}
+    ${deviceLocation ? html`<${LocationDetails} location=${deviceLocation} />` : null}
+    <${Button} onClick=${() => {
+      useDeviceLocation().then(() => {
+        route.value = ROUTES.forecast;
+      }).catch(err => {
+        console.log('failed to use device location on user request:', err);
+      });
+    }}>Use device location<//>
   <//>`;
 };
 
