@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, html, useSignal, batch } from '../preact.js';
 import { getPosition } from '../sources/position.js';
 import { useRoutes } from './routes.js';
+import { persistent } from '../sources/persistent.js';
 
 const Location = createContext({});
 
@@ -27,6 +28,8 @@ export const withLocation = Component => ({ children, ...props }) => {
         type
       };
 
+      persistent.set('location', { ...value });
+
       location.value = { ...value };
       history.value = [...history.value, { ...value }];
     });
@@ -34,6 +37,15 @@ export const withLocation = Component => ({ children, ...props }) => {
 
   useEffect(() => {
     (async () => {
+      const storedLocation = persistent.get('location');
+
+      // if user has a previous saved location, open that location
+      // initially and let them change it later if they want
+      if (storedLocation && storedLocation.type === 'manual') {
+        setLocation(storedLocation);
+        return;
+      }
+
       const { state: geolocationPermission } = await navigator.permissions.query({ name: 'geolocation' });
 
       if (geolocationPermission === 'granted') {
