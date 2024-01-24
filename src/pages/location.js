@@ -52,28 +52,57 @@ const SearchResults = ({ results }) => {
   const { setLocation } = useLocation();
   const { route, ROUTES } = useRoutes();
 
-  if (!results) {
-    return html`<div>Type a city name to search<//>`;
-  }
+  const classname = useStyle(`
+    $ {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
-  if (results.length === 0) {
-    return html`<div>No results found.<//>`;
-  }
+    $ .result {
+      display: grid;
+      grid-template-columns: max-content auto;
+      gap: 1rem 1rem;
+      padding: 1rem;
+      width: 100%;
+    }
 
-  return results.map(place => html`<div key="${place.description}" onClick=${() => {
-    batch(() => {
-      setLocation({
-        latitude: place.latitude,
-        longitude: place.longitude,
-        description: `${place.name}, ${place.description}`
-      });
-      route.value = ROUTES.forecast;
-    });
-  }}>
-    <${Emoji}>${getFlagEmoji(place.countryCode)}<//>
-    <span>${'\u00A0' /* nbsp */}<//>
-    <span>${place.name}, ${place.description}<//>
-  <//>`);
+    $ .result:nth-child(even) {
+      background: rgba(255,255,255,0.1);
+      border-radius: 5px;
+    }
+
+    $ .description {
+      text-align: center;
+    }
+  `);
+
+  return html`<div class="${classname} limit">
+    ${(() => {
+      if (!results) {
+        return html`<div>Type a city name to search<//>`;
+      }
+
+      if (results.length === 0) {
+        return html`<div>No results found<//>`;
+      }
+
+      return results.map(place => html`<div key="${place.description}" class="result" onClick=${() => {
+        batch(() => {
+          setLocation({
+            latitude: place.latitude,
+            longitude: place.longitude,
+            description: `${place.name}, ${place.description}`
+          });
+          route.value = ROUTES.forecast;
+        });
+      }}>
+        <${Emoji}>${getFlagEmoji(place.countryCode)}<//>
+        <span class="description">${place.name}, ${place.description}<//>
+      <//>`);
+    })()}
+  <//>`;
 };
 
 export const Location = () => {
