@@ -4,6 +4,8 @@ export const lookupPosition = async ({ latitude, longitude }) => {
   const res = await fetchOk(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}`);
   const json = await res.json();
 
+  console.log('📍', json);
+
   const { locality, city } = json;
 
   return { latitude, longitude, description: `${locality}, ${city}` };
