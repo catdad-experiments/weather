@@ -1,8 +1,12 @@
 import { fetchOk } from "../utils.js";
 
 export const geocode = async search => {
+  if (search === '') {
+    return [];
+  }
+
   const res = await fetchOk(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(search)}&count=10&language=en&format=json`);
-  const { results } = await res.json();
+  const { results = [] } = await res.json();
 
   return results.map(place => ({
     name: place.name,

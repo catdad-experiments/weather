@@ -109,6 +109,11 @@ export const Location = () => {
   const searchResults = useSignal(null);
 
   const onInputChange = ({ value }) => {
+    if (value === '') {
+      searchResults.value = null;
+      return;
+    }
+
     geocode(value).then(results => {
       console.log(`📍 "${value}" lookup:`, results);
       searchResults.value = results;
