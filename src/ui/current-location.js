@@ -19,9 +19,13 @@ export const LocationChip = ({ editable = false, autofocus = false, onClick = ()
     $:after {
       content: var(--icon);
       position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       top: 50%;
       transform: translate(0px, -50%);
-      left: 1.5rem;
+      left: 1rem;
+      width: 1rem;
       font-family: ${emojiFont};
     }
 
@@ -34,7 +38,7 @@ export const LocationChip = ({ editable = false, autofocus = false, onClick = ()
       color: var(--foreground);
       width: 100%;
       font-weight: bold;
-      padding: 0.5rem 1rem 0.5rem 3rem;
+      padding: 0.5rem 1rem 0.5rem 2.5rem;
     }
 
     $ input::placeholder {
