@@ -38,7 +38,7 @@ export const LocationChip = ({ editable = false, autofocus = false, onClick = ()
       color: var(--foreground);
       width: 100%;
       font-weight: bold;
-      padding: 0.5rem 1rem 0.5rem 2.5rem;
+      padding: 0.5rem 1rem 0.5rem 2.75rem;
     }
 
     $ input::placeholder {
@@ -58,12 +58,14 @@ export const LocationChip = ({ editable = false, autofocus = false, onClick = ()
     }
   `);
 
-  const { description: placeDescription } = location.value;
+  const { description: placeDescription, type: locationType } = location.value;
 
   const placeholder = editable ? 'Search for a location' :
     placeDescription ? `${placeDescription}` : 'Unknown location';
 
-  return html`<div class="${classname}" style="--icon: '${editable ? '🔎' : '📍'}'" onClick=${onClick}>
+  const emoji = editable ? '🔎' : locationType === 'device' ? '📍' : '🗺';
+
+  return html`<div class="${classname}" style="--icon: '${emoji}'" onClick=${onClick}>
     <input disabled=${!editable} autofocus=${autofocus} placeholder=${placeholder} onChange=${ev => {
       const value = ev.target.value;
       onChange({ value });
