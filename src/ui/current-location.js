@@ -34,7 +34,6 @@ export const LocationChip = ({ editable = false, autofocus = false, onClick = ()
       color: var(--foreground);
       width: 100%;
       font-weight: bold;
-      margin-left: 0.5rem;
       padding: 0.5rem 1rem 0.5rem 3rem;
     }
 
