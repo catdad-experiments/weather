@@ -12,10 +12,7 @@ export const withWeather = Component => ({ children, ...props }) => {
   const windspeedUnit = useSignal('mph'); // kmh, ms, mph, kn,
   const precipitationUnit = useSignal('inch'); // mm, inch
 
-  // when coordinates change, fetch the new weather
-  // for some reason, `effect` is executed twice on
-  // a single `location` change
-  useEffect(() => {
+  const refreshForecast = async () => {
     const { latitude, longitude } = location.value;
 
     if (latitude === undefined) {
@@ -30,16 +27,22 @@ export const withWeather = Component => ({ children, ...props }) => {
       precipitation_unit: precipitationUnit.value
     };
 
-    getForecast(query).then(result => {
-      weather.value = result;
-    }).catch(err => {
+    const result = await getForecast(query);
+    weather.value = result;
+  };
+
+  // when coordinates change, fetch the new weather
+  // for some reason, `effect` is executed twice on
+  // a single `location` change
+  useEffect(() => {
+    refreshForecast().catch(err => {
       // TODO
       console.error('failed to fetch weather data:', err);
     });
   }, [location.value.latitude, location.value.longitude]);
 
   return html`
-    <${Weather.Provider} value=${{ weather }}>
+    <${Weather.Provider} value=${{ weather, refreshForecast }}>
       <${Component} ...${props}>${children}<//>
     <//>
   `;

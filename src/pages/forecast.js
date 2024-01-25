@@ -12,7 +12,7 @@ import { DailyForecast } from "../ui/daily-forecast.js";
 
 export const Forecast = () => {
   const { location } = useLocation();
-  const { weather } = useWeather();
+  const { weather, refreshForecast } = useWeather();
   const { route, ROUTES } = useRoutes();
 
   const classname = useStyle(`
@@ -40,7 +40,7 @@ export const Forecast = () => {
       refreshed: ${getDateTime(weather.value.date)}
       <span> <//>
       <button onclick=${() => {
-        location.value = {...location.value};
+        refreshForecast();
       }}>refresh now<//>
     <//>
   <//>`;
