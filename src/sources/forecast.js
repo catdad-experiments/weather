@@ -40,6 +40,13 @@ const codes = {
   99: { name: 'Thunderstorm with heavy hail', icon: '⛈' },
 };
 
+const getOpenMeteoResponse = async queryString => {
+  const res = await fetchOk(`https://api.open-meteo.com/v1/forecast?${queryString}`);
+  const json = await res.json();
+
+  return json;
+};
+
 export const getForecast = async (query) => {
   const now = new Date();
   const shorten = x => Math.round(x * 1000) / 1000;
@@ -76,8 +83,7 @@ export const getForecast = async (query) => {
   const tempUnit = ({ celcius: '°C', fahrenheit: '°F'})[query.temperature_unit];
   const precipUnit = ({ inch: 'in', mm: 'mm' })[query.precipitation_unit];
 
-  const res = await fetchOk(`https://api.open-meteo.com/v1/forecast?${queryString}`);
-  const json = await res.json();
+  const json = await getOpenMeteoResponse(queryString);
 
   let currentFeelsLike;
   const thisDay = getDay(new Date());

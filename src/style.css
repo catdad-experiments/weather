@@ -56,26 +56,17 @@ html, body {
   background: #d64c4f;
 }
 
-.container {
-  position: relative;
-  height: var(--full);
-
-  display: flex;
-  flex-direction: column;
-}
-
-.contents {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-}
-
 .limit {
+  --side-margins: 10px;
+
   width: 100%;
   max-width: var(--limit);
   margin-left: auto;
   margin-right: auto;
+}
+
+.center {
+  text-align: center;
 }
 
 .hide {
@@ -109,12 +100,12 @@ body {
 
 .main {
   position: relative;
+  min-height: 100vh;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding-bottom: calc(var(--spacing));
 }
 
 i.material-icons {
