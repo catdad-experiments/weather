@@ -20,6 +20,8 @@
   --LIGHT-lvl2: var(--lightest);
   --LIGHT-foreground: var(--darkest);
   --LIGHT-background: var(--light);
+
+  --font: "Noto Sans", sans-serif;
 }
 
 body {
@@ -34,9 +36,13 @@ html, body {
   padding: 0;
   background: var(--background);
 
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font);
   color: var(--foreground);
   line-height: 1.2;
+}
+
+input {
+  font-family: var(--font);
 }
 
 * {
