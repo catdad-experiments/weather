@@ -70,7 +70,7 @@ export const LocationChip = ({ editable = false, autofocus = false, onClick = ()
       const value = ev.target.value;
       onChange({ value });
     }} />
-  <//>`
+  <//>`;
 };
 
 export const LocationDetails = ({ location }) => {
